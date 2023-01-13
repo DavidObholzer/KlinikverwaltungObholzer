@@ -11,7 +11,7 @@ namespace Klinikverwaltung
     {
         static SqlConnection con = new SqlConnection("server=localdb)\\MSSQLLocalDB;");
         static SqlCommand cmd = new SqlCommand("", con);
-        static SqlDataReader dr;
+        static SqlDataReader sdr;
 
         static public bool checkForDatabase()
         {
@@ -107,10 +107,10 @@ namespace Klinikverwaltung
             {
                 con.Open();
 
-                cmd.CommandText = "insert into TblUser values ('" + username + "', '" + BCrypt.HashPassword(password, BCrypt.GenerateSalt() + "')";
+                cmd.CommandText = "insert into TblUser values ('" + username + "', '" + BCrypt.HashPassword(password, BCrypt.GenerateSalt()) + "')";
                 cmd.BeginExecuteNonQuery();
                 
-                con.Open();
+                con.Close();
             }
             catch (Exception ex)
             {
@@ -122,6 +122,21 @@ namespace Klinikverwaltung
 
         static public bool login(string username, string password)
         {
+            try
+            {
+                con.Open();
+
+
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
+
             return false;
         }
     }
