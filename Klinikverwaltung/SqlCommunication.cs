@@ -91,6 +91,14 @@ namespace Klinikverwaltung
                     "[notes] NVARCHAR (500))";
                 cmd.ExecuteNonQuery();
 
+                cmd.CommandText = "CREATE TABLE TblAppointment([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                    "[patientID] int, " +
+                    "[staffID] int, " +
+                    "[date] date," +
+                    "[roomNumber] int" +
+                    "[description] NVARCHAR (MAX))";
+                cmd.ExecuteNonQuery();
+
                 con.Close();
             }
             catch (Exception ex)
@@ -108,7 +116,7 @@ namespace Klinikverwaltung
                 con.Open();
 
                 cmd.CommandText = "insert into TblUser values ('" + username + "', '" + BCrypt.HashPassword(password, BCrypt.GenerateSalt()) + "')";
-                cmd.BeginExecuteNonQuery();
+                cmd.ExecuteNonQuery();
                 
                 con.Close();
             }
@@ -126,7 +134,7 @@ namespace Klinikverwaltung
             {
                 con.Open();
 
-
+                
 
                 con.Close();
             }
