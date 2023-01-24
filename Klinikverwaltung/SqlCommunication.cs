@@ -9,9 +9,10 @@ namespace Klinikverwaltung
 {
     internal class SqlCommunication
     {
-        static SqlConnection con = new SqlConnection("server=localdb)\\MSSQLLocalDB;");
+        static SqlConnection con = new SqlConnection("server=(localdb)\\MSSQLLocalDB; Integrated security = true;");
         static SqlCommand cmd = new SqlCommand("", con);
         static SqlDataReader sdr;
+        private static bool bCreateTable = false;
 
         static public bool checkForDatabase()
         {
@@ -19,7 +20,7 @@ namespace Klinikverwaltung
             try
             {
                 con.Open();
-                cmd.CommandText = "SELECT COUNT(*) FROM sys.databases WHERE name = 'DBKlinikverwaltungObholzer";
+                cmd.CommandText = "SELECT COUNT(*) FROM sys.databases WHERE name = 'DBKlinikverwaltungObholzer'";
 
                 exist = Convert.ToInt32(cmd.ExecuteScalar()) == 1;
                 con.Close();
@@ -52,6 +53,8 @@ namespace Klinikverwaltung
                     cmd.ExecuteNonQuery();
                     con.Close();
                     con.ConnectionString += "database=DBKlinikverwaltungObholzer";
+
+                    bCreateTable = true;
                 }
                 catch (Exception ex)
                 {
@@ -66,40 +69,43 @@ namespace Klinikverwaltung
         {
             try
             {
-                con.Open();
+                if (bCreateTable)
+                {
+                    con.Open();
 
-                cmd.CommandText = "CREATE TABLE TblUser([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
-                    "[username] NVARCHAR (50), " +
-                    "[password] NVARCHAR (100))";
-                cmd.ExecuteNonQuery();
+                    cmd.CommandText = "CREATE TABLE TblUser([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                        "[username] NVARCHAR (50), " +
+                        "[password] NVARCHAR (100))";
+                    cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "CREATE TABLE TblPatients([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
-                    "[name] NVARCHAR (50), " +
-                    "[lastname] NVARCHAR (50), " +
-                    "[birthday] date," +
-                    "[dateOfArrival] date," +
-                    "[plannedLeave] date," +
-                    "[notes] NVARCHAR (500))";
-                cmd.ExecuteNonQuery();
+                    cmd.CommandText = "CREATE TABLE TblPatients([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                        "[name] NVARCHAR (50), " +
+                        "[lastname] NVARCHAR (50), " +
+                        "[birthday] date," +
+                        "[dateOfArrival] date," +
+                        "[plannedLeave] date," +
+                        "[notes] NVARCHAR (500))";
+                    cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "CREATE TABLE TblStaff([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
-                    "[name] NVARCHAR (50), " +
-                    "[lastname] NVARCHAR (50), " +
-                    "[birthday] date," +
-                    "[monthlySalary] DECIMAL(8,2)" +
-                    "[profession] NVARCHAR (50)," +
-                    "[notes] NVARCHAR (500))";
-                cmd.ExecuteNonQuery();
+                    cmd.CommandText = "CREATE TABLE TblStaff([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                        "[name] NVARCHAR (50), " +
+                        "[lastname] NVARCHAR (50), " +
+                        "[birthday] date," +
+                        "[monthlySalary] DECIMAL(8,2)" +
+                        "[profession] NVARCHAR (50)," +
+                        "[notes] NVARCHAR (500))";
+                    cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "CREATE TABLE TblAppointment([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
-                    "[patientID] int, " +
-                    "[staffID] int, " +
-                    "[date] date," +
-                    "[roomNumber] int" +
-                    "[description] NVARCHAR (MAX))";
-                cmd.ExecuteNonQuery();
+                    cmd.CommandText = "CREATE TABLE TblAppointment([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                        "[patientID] int, " +
+                        "[staffID] int, " +
+                        "[date] date," +
+                        "[roomNumber] int" +
+                        "[description] NVARCHAR (MAX))";
+                    cmd.ExecuteNonQuery();
 
-                con.Close();
+                    con.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -134,7 +140,12 @@ namespace Klinikverwaltung
             {
                 con.Open();
 
-                
+                cmd.CommandText = "select password from TblUser where username = '" + username + "';";
+
+                if (BCrypt.CheckPassword(password, cmd.ExecuteScalar().ToString()))
+                    return true;
+                else
+                    return false;
 
                 con.Close();
             }
