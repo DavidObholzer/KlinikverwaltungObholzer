@@ -22,5 +22,13 @@ namespace Klinikverwaltung
         {
             
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FormCalender fc = new FormCalender();
+            Hide();
+            fc.ShowDialog();
+            Show();
+        }
     }
 }

@@ -16,7 +16,10 @@ namespace Klinikverwaltung
 
         static public bool checkForDatabase()
         {
+            //check for the existence of the database by selecting every databse in sys.databases
+           
             bool exist = false;
+            
             try
             {
                 con.Open();
@@ -136,6 +139,7 @@ namespace Klinikverwaltung
 
         static public bool login(string username, string password)
         {
+            //checks for correct combination of username and password by "dehashing" the password in the user table
             try
             {
                 con.Open();

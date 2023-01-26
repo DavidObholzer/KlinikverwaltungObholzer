@@ -33,6 +33,7 @@
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
+            this.btnTempSkip = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnLogin
@@ -77,11 +78,22 @@
             this.txtPassword.Size = new System.Drawing.Size(192, 23);
             this.txtPassword.TabIndex = 4;
             // 
+            // btnTempSkip
+            // 
+            this.btnTempSkip.Location = new System.Drawing.Point(76, 248);
+            this.btnTempSkip.Name = "btnTempSkip";
+            this.btnTempSkip.Size = new System.Drawing.Size(303, 49);
+            this.btnTempSkip.TabIndex = 6;
+            this.btnTempSkip.Text = "Temporary Skip";
+            this.btnTempSkip.UseVisualStyleBackColor = true;
+            this.btnTempSkip.Click += new System.EventHandler(this.btnTempSkip_Click);
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(457, 314);
+            this.Controls.Add(this.btnTempSkip);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblUsername);
@@ -101,5 +113,6 @@
         private Label lblUsername;
         private Label lblPassword;
         private TextBox txtPassword;
+        private Button btnTempSkip;
     }
 }

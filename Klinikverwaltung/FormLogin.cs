@@ -19,5 +19,14 @@ namespace Klinikverwaltung
                 MessageBox.Show("Login successful");
             }
         }
+
+        private void btnTempSkip_Click(object sender, EventArgs e)
+        {
+            FormMainMenu fmm = new FormMainMenu();
+
+            Hide();
+            fmm.ShowDialog();
+            Close();
+        }
     }
 }
