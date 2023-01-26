@@ -105,14 +105,29 @@ namespace Klinikverwaltung
         {
             //get a date of the first day of next or last month
             DateTime dateOfFirstDay;
-
+            
             if (forward)
-            {
-                dateOfFirstDay = new DateTime(savedDate.Year, savedDate.AddMonths(1).Month, 1);
+            {     
+                if (savedDate.Month == 12)
+                {
+                    dateOfFirstDay = new DateTime(savedDate.AddYears(1).Year, savedDate.AddMonths(1).Month, 1);
+                }
+                else
+                {
+                    dateOfFirstDay = new DateTime(savedDate.Year, savedDate.AddMonths(1).Month, 1);
+                }
             }
             else
-            {  
-                dateOfFirstDay = new DateTime(savedDate.Year, savedDate.AddMonths(-1).Month, 1);
+            {
+                if (savedDate.Month == 1)
+                {
+                    dateOfFirstDay = new DateTime(savedDate.AddYears(-1).Year, savedDate.AddMonths(-1).Month, 1);
+                }
+                else
+                {
+                    dateOfFirstDay = new DateTime(savedDate.Year, savedDate.AddMonths(-1).Month, 1);
+                }
+               
             }
 
             lblYearAndMonth.Text = dateOfFirstDay.ToString("MMMM yyyy");

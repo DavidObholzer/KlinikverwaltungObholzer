@@ -94,7 +94,7 @@ namespace Klinikverwaltung
                         "[name] NVARCHAR (50), " +
                         "[lastname] NVARCHAR (50), " +
                         "[birthday] date," +
-                        "[monthlySalary] DECIMAL(8,2)" +
+                        "[monthlySalary] DECIMAL(8,2)," +
                         "[profession] NVARCHAR (50)," +
                         "[notes] NVARCHAR (500))";
                     cmd.ExecuteNonQuery();
@@ -103,7 +103,7 @@ namespace Klinikverwaltung
                         "[patientID] int, " +
                         "[staffID] int, " +
                         "[date] date," +
-                        "[roomNumber] int" +
+                        "[roomNumber] int," +
                         "[description] NVARCHAR (MAX))";
                     cmd.ExecuteNonQuery();
 
