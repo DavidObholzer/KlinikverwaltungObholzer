@@ -87,7 +87,8 @@ namespace Klinikverwaltung
                         "[birthday] date," +
                         "[dateOfArrival] date," +
                         "[plannedLeave] date," +
-                        "[notes] NVARCHAR (500))";
+                        "[notes] NVARCHAR (500)," +
+                        "[roomID] int)";
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "CREATE TABLE TblStaff([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
@@ -105,6 +106,11 @@ namespace Klinikverwaltung
                         "[date] date," +
                         "[roomNumber] int," +
                         "[description] NVARCHAR (MAX))";
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "CREATE TABLE TblRoom([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                        "[roomName] NVARCHAR (50), " +
+                        "[floorLevel] int)";
                     cmd.ExecuteNonQuery();
 
                     con.Close();
