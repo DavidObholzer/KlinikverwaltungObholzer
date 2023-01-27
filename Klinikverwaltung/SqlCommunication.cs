@@ -115,7 +115,8 @@ namespace Klinikverwaltung
 
                     cmd.CommandText = "CREATE TABLE TblShift([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[staffID] int, " +
-                        "[date] date," +
+                        "[starDate] date," +
+                        "[endDate] date," +
                         "[description] NVARCHAR (MAX))";
                     cmd.ExecuteNonQuery();
 
@@ -159,11 +160,15 @@ namespace Klinikverwaltung
                 cmd.CommandText = "select password from TblUser where username = '" + username + "';";
 
                 if (BCrypt.CheckPassword(password, cmd.ExecuteScalar().ToString()))
+                {
+                    con.Close();
                     return true;
+                }
                 else
+                {
+                    con.Close();
                     return false;
-
-                con.Close();
+                }
             }
             catch (Exception ex)
             {
