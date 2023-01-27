@@ -113,6 +113,12 @@ namespace Klinikverwaltung
                         "[floorLevel] int)";
                     cmd.ExecuteNonQuery();
 
+                    cmd.CommandText = "CREATE TABLE TblShift([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                        "[staffID] int, " +
+                        "[date] date," +
+                        "[description] NVARCHAR (MAX))";
+                    cmd.ExecuteNonQuery();
+
                     con.Close();
                 }
             }
