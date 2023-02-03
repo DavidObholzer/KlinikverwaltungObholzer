@@ -81,7 +81,7 @@ namespace Klinikverwaltung
                         "[password] NVARCHAR (100))";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "CREATE TABLE TblPatients([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                    cmd.CommandText = "CREATE TABLE TblPatient([patientId] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[name] NVARCHAR (50), " +
                         "[lastname] NVARCHAR (50), " +
                         "[birthday] date," +
@@ -91,7 +91,7 @@ namespace Klinikverwaltung
                         "[roomID] int)";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "CREATE TABLE TblStaff([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                    cmd.CommandText = "CREATE TABLE TblStaff([staffId] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[name] NVARCHAR (50), " +
                         "[lastname] NVARCHAR (50), " +
                         "[birthday] date," +
@@ -100,20 +100,27 @@ namespace Klinikverwaltung
                         "[notes] NVARCHAR (500))";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "CREATE TABLE TblAppointment([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
-                        "[patientID] int, " +
-                        "[staffID] int, " +
+                    //foreign keys undone
+                    cmd.CommandText = "CREATE TABLE TblAppointment([appointmentId] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                        "[pID] int, " +
+                        "[sID] int, " +
                         "[date] date," +
                         "[roomNumber] int," +
-                        "[description] NVARCHAR (MAX))";
+                        "[description] NVARCHAR (MAX), " +
+                        "CONSTRAINT FK_patientID FOREIGN KEY (pID)" +
+                        "REFERENCES TblPatient (patientId), " +
+                        "CONSTRAINT FK_staffId FOREIGN KEY (sID)" +
+                        "REFERENCES TblStaff (staffId), " +
+                        "ON DELETE CASCADE" +
+                        "ON UPDATE CASCADE)";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "CREATE TABLE TblRoom([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                    cmd.CommandText = "CREATE TABLE TblRoom([roomId] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[roomName] NVARCHAR (50), " +
                         "[floorLevel] int)";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "CREATE TABLE TblShift([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                    cmd.CommandText = "CREATE TABLE TblShift([shiftId] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[staffID] int, " +
                         "[starDate] date," +
                         "[endDate] date," +
@@ -178,6 +185,27 @@ namespace Klinikverwaltung
             }
 
             return false;
+        }
+
+        public static List<string> getAppointments(string date)
+        {
+            //returns a list of dates on 
+            List<string> appointments = new List<string>();
+
+            try
+            {
+                con.Open();
+
+                cmd.CommandText = "select date, patientID, staffID, "
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

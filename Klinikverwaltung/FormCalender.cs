@@ -39,6 +39,7 @@ namespace Klinikverwaltung
                     pnlNew.Height = 54;
                     pnlNew.Width = 110;
                     pnlNew.BorderStyle = BorderStyle.FixedSingle;
+                    pnlNew.Click += pnlNew_Click;
                     lpnl.Add(pnlNew);
                     pnlCalender.Controls.Add(pnlNew);
 
@@ -99,6 +100,20 @@ namespace Klinikverwaltung
 
                 dayAddition++;
             }
+        }
+
+        public void pnlNew_Click(object sender, EventArgs e)
+        {
+            Panel? pnlNew = sender as Panel;
+            Label? lblNew = new Label();
+
+            foreach (Control c in pnlNew.Controls)
+            {
+                if (c is Label)
+                    lblNew = c as Label;
+            }
+
+            FormSingleDay fsd = new FormSingleDay(lblNew.Text);
         }
 
         public void updateLabel(bool forward)
