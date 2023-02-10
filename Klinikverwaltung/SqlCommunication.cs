@@ -100,7 +100,7 @@ namespace Klinikverwaltung
                         "[notes] NVARCHAR (500))";
                     cmd.ExecuteNonQuery();
 
-                    //foreign keys undone
+                    //foreign keys undone quick chat cjnubf
                     cmd.CommandText = "CREATE TABLE TblAppointment([appointmentId] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[pID] int, " +
                         "[sID] int, " +
@@ -111,6 +111,8 @@ namespace Klinikverwaltung
                         "REFERENCES TblPatient (patientId), " +
                         "CONSTRAINT FK_staffId FOREIGN KEY (sID)" +
                         "REFERENCES TblStaff (staffId), " +
+                        "CONSTRAINT FK_roomID FOREIGN KEY (roomNumber)" +
+                        "REFERENCES TblRoom (roomID), " +
                         "ON DELETE CASCADE" +
                         "ON UPDATE CASCADE)";
                     cmd.ExecuteNonQuery();
