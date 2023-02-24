@@ -29,6 +29,7 @@ namespace Klinikverwaltung
             int topValue = 100;
             int leftValue = 3;
 
+            //for loop to get create panels in a new row after 7 panels have been created
             for (int i=0; i < 6; i++)
             {
                 for (int i2 = 0; i2 < 7; i2++)
@@ -107,6 +108,7 @@ namespace Klinikverwaltung
             Panel? pnlNew = sender as Panel;
             Label? lblNew = new Label();
 
+            //foreach loop to get the date of the label as a parameter
             foreach (Control c in pnlNew.Controls)
             {
                 if (c is Label)

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.lblDate = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlSingleDay = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // lblDate
@@ -37,23 +37,23 @@
             this.lblDate.AutoSize = true;
             this.lblDate.Location = new System.Drawing.Point(371, 50);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(38, 15);
+            this.lblDate.Size = new System.Drawing.Size(30, 15);
             this.lblDate.TabIndex = 0;
-            this.lblDate.Text = "label1";
+            this.lblDate.Text = "date";
             // 
-            // flowLayoutPanel1
+            // pnlSingleDay
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 96);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(800, 110);
-            this.flowLayoutPanel1.TabIndex = 1;
+            this.pnlSingleDay.Location = new System.Drawing.Point(12, 115);
+            this.pnlSingleDay.Name = "pnlSingleDay";
+            this.pnlSingleDay.Size = new System.Drawing.Size(800, 110);
+            this.pnlSingleDay.TabIndex = 2;
             // 
             // FormSingleDay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 450);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.pnlSingleDay);
             this.Controls.Add(this.lblDate);
             this.Name = "FormSingleDay";
             this.Text = "FormSingleDay";
@@ -66,6 +66,6 @@
         #endregion
 
         private Label lblDate;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private Panel pnlSingleDay;
     }
 }

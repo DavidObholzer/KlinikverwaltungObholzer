@@ -100,19 +100,19 @@ namespace Klinikverwaltung
                         "[notes] NVARCHAR (500))";
                     cmd.ExecuteNonQuery();
 
-                    //foreign keys undone quick chat cjnubf
+                    
                     cmd.CommandText = "CREATE TABLE TblAppointment([appointmentId] INT NOT NULL PRIMARY KEY IDENTITY, " +
-                        "[pID] int, " +
-                        "[sID] int, " +
+                        "[pId] int, " +
+                        "[sId] int, " +
                         "[date] date," +
                         "[roomNumber] int," +
                         "[description] NVARCHAR (MAX), " +
-                        "CONSTRAINT FK_patientID FOREIGN KEY (pID)" +
+                        "CONSTRAINT FK_patientId FOREIGN KEY (pId)" +
                         "REFERENCES TblPatient (patientId), " +
-                        "CONSTRAINT FK_staffId FOREIGN KEY (sID)" +
+                        "CONSTRAINT FK_staffId FOREIGN KEY (sId)" +
                         "REFERENCES TblStaff (staffId), " +
-                        "CONSTRAINT FK_roomID FOREIGN KEY (roomNumber)" +
-                        "REFERENCES TblRoom (roomID), " +
+                        "CONSTRAINT FK_roomId FOREIGN KEY (roomNumber)" +
+                        "REFERENCES TblRoom (roomId), " +
                         "ON DELETE CASCADE" +
                         "ON UPDATE CASCADE)";
                     cmd.ExecuteNonQuery();
@@ -123,10 +123,14 @@ namespace Klinikverwaltung
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "CREATE TABLE TblShift([shiftId] INT NOT NULL PRIMARY KEY IDENTITY, " +
-                        "[staffID] int, " +
+                        "[sId] int, " +
                         "[starDate] date," +
                         "[endDate] date," +
-                        "[description] NVARCHAR (MAX))";
+                        "[description] NVARCHAR (MAX)" +
+                        "CONSTRAINT Fk_staffID FOREIGN KEY (sId)" +
+                        "REFERENCES TblStaff (staffId)" +
+                        "ON DELETE CASCADE" +
+                        "ON UPDATE CASCADE)";
                     cmd.ExecuteNonQuery();
 
                     con.Close();
@@ -189,16 +193,34 @@ namespace Klinikverwaltung
             return false;
         }
 
-        public static List<string> getAppointments(string date)
+        public static List<List<string>> getAppointments(string date)
         {
-            //returns a list of dates on 
-            List<string> appointments = new List<string>();
+            //returns a list of appointments on a certain date
+            List<List<string>> appointments = new List<List<string>>();
+            List<string> lsPatient = new List<string>();
+            List<string> lsStaff = new List<string>();
+            List<string> lsRoomName = new List<string>();
+
+            
 
             try
             {
                 con.Open();
 
-                cmd.CommandText = "select date, patientID, staffID, "
+                cmd.CommandText = "select TblPatient.name, TblPatient.lastname, TblStaff.name, TblStaff.lastname, " +
+                    "roomName from TblAppointment" +
+                    "where date = " + date;
+                sdr = cmd.ExecuteReader();
+
+                if (sdr.HasRows)
+                {
+                    while (sdr.Read())
+                    {
+                        lsPatient.Add(sdr[0].ToString() + " " + sdr[1].ToString());
+                        lsStaff.Add(sdr[2].ToString() + " " + sdr[3].ToString());
+                        lsRoomName.Add(sdr[4].ToString());
+                    }
+                }
 
                 con.Close();
             }
@@ -208,6 +230,12 @@ namespace Klinikverwaltung
                     con.Close();
                 MessageBox.Show(ex.ToString());
             }
+
+            appointments.Add(lsPatient);
+            appointments.Add(lsStaff);
+            appointments.Add(lsRoomName);
+
+            return appointments;
         }
     }
 }
