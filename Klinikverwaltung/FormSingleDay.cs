@@ -41,19 +41,29 @@ namespace Klinikverwaltung
             {
                 for (int i2 = 0; i2 < 5; i2++)
                 {
-                    Panel btnNew = new Panel();
-                    btnNew.Top = topValue;
-                    btnNew.Left = 1;//change
-                    btnNew.Height = 54;
-                    btnNew.Width = 110;
-                    btnNew.BorderStyle = BorderStyle.FixedSingle;
-                    btnNew.Click += btnNew_Click;
-                    pnlSingleDay.Controls.Add(btnNew);
+                    Panel pnlNew = new Panel();
+                    pnlNew.Top = topValue;
+                    pnlNew.Left = 0;
+                    pnlNew.Height = 140;
+                    pnlNew.Width = 140;
+                    pnlNew.BorderStyle = BorderStyle.FixedSingle;
+                    pnlNew.Click += pnlNew_Click;
+                    pnlSingleDay.Controls.Add(pnlNew);
 
-                    leftValue += btnNew.Width;
+                    leftValue += pnlNew.Width+5;
                 }
-                topValue += 54;
-                leftValue = 3;
+                topValue += 140;
+                leftValue = 0;
+            }
+        }
+
+        public void pnlNew_Click(object sender, EventArgs e)
+        {
+            Panel? pnlNew = sender as Panel;
+            
+            if(MessageBox.Show("Wollen Sie diesen Termin löschen?", "Löschen", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                pnlNew.Dispose();
             }
         }
     }

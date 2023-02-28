@@ -116,6 +116,7 @@ namespace Klinikverwaltung
             }
 
             FormSingleDay fsd = new FormSingleDay(lblNew.Text);
+            fsd.ShowDialog();
         }
 
         public void updateLabel(bool forward)

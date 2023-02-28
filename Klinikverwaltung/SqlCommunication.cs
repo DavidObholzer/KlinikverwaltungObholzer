@@ -112,7 +112,7 @@ namespace Klinikverwaltung
                         "CONSTRAINT FK_staffId FOREIGN KEY (sId)" +
                         "REFERENCES TblStaff (staffId), " +
                         "CONSTRAINT FK_roomId FOREIGN KEY (roomNumber)" +
-                        "REFERENCES TblRoom (roomId), " +
+                        "REFERENCES TblRoom (roomId) " +
                         "ON DELETE CASCADE" +
                         "ON UPDATE CASCADE)";
                     cmd.ExecuteNonQuery();
@@ -131,6 +131,16 @@ namespace Klinikverwaltung
                         "REFERENCES TblStaff (staffId)" +
                         "ON DELETE CASCADE" +
                         "ON UPDATE CASCADE)";
+                    cmd.ExecuteNonQuery();
+
+                    //test stuff
+                    cmd.CommandText = "insert into TblPatient values ('Peter', 'Fischer', 2001-02-02, 2023-02-23, " +
+                        "2023-05-20, 'Nothing important', 1);";
+                    cmd.CommandText += "insert into TblStaff values ('Hans', 'Hasenauer', 2001-02-02, 3400.00, " +
+                        "Doktor, 'Nothing important');";
+                    cmd.CommandText += "insert into TblAppointment values (1, 1, 2023-02-23, 1, " +
+                        "'dumb things happpening here')";
+                    cmd.CommandText += "insert into TblRoom values ('RaumRaum', 0)";
                     cmd.ExecuteNonQuery();
 
                     con.Close();

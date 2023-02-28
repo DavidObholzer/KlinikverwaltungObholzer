@@ -30,6 +30,7 @@
         {
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlSingleDay = new System.Windows.Forms.Panel();
+            this.btnAddAppointment = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblDate
@@ -48,11 +49,21 @@
             this.pnlSingleDay.Size = new System.Drawing.Size(800, 110);
             this.pnlSingleDay.TabIndex = 2;
             // 
+            // btnAddAppointment
+            // 
+            this.btnAddAppointment.Location = new System.Drawing.Point(12, 80);
+            this.btnAddAppointment.Name = "btnAddAppointment";
+            this.btnAddAppointment.Size = new System.Drawing.Size(119, 29);
+            this.btnAddAppointment.TabIndex = 3;
+            this.btnAddAppointment.Text = "Termin hinzufügen";
+            this.btnAddAppointment.UseVisualStyleBackColor = true;
+            // 
             // FormSingleDay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 450);
+            this.Controls.Add(this.btnAddAppointment);
             this.Controls.Add(this.pnlSingleDay);
             this.Controls.Add(this.lblDate);
             this.Name = "FormSingleDay";
@@ -67,5 +78,6 @@
 
         private Label lblDate;
         private Panel pnlSingleDay;
+        private Button btnAddAppointment;
     }
 }
