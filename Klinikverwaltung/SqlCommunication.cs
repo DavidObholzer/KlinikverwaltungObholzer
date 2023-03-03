@@ -100,7 +100,11 @@ namespace Klinikverwaltung
                         "[notes] NVARCHAR (500))";
                     cmd.ExecuteNonQuery();
 
-                    
+                    cmd.CommandText = "CREATE TABLE TblRoom([roomId] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                        "[roomName] NVARCHAR (50), " +
+                        "[floorLevel] int)";
+                    cmd.ExecuteNonQuery();
+
                     cmd.CommandText = "CREATE TABLE TblAppointment([appointmentId] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[pId] int, " +
                         "[sId] int, " +
@@ -109,17 +113,10 @@ namespace Klinikverwaltung
                         "[description] NVARCHAR (MAX), " +
                         "CONSTRAINT FK_patientId FOREIGN KEY (pId)" +
                         "REFERENCES TblPatient (patientId), " +
-                        "CONSTRAINT FK_staffId FOREIGN KEY (sId)" +
+                        "CONSTRAINT FK_appointment_staffId FOREIGN KEY (sId)" +
                         "REFERENCES TblStaff (staffId), " +
                         "CONSTRAINT FK_roomId FOREIGN KEY (roomNumber)" +
-                        "REFERENCES TblRoom (roomId) " +
-                        "ON DELETE CASCADE" +
-                        "ON UPDATE CASCADE)";
-                    cmd.ExecuteNonQuery();
-
-                    cmd.CommandText = "CREATE TABLE TblRoom([roomId] INT NOT NULL PRIMARY KEY IDENTITY, " +
-                        "[roomName] NVARCHAR (50), " +
-                        "[floorLevel] int)";
+                        "REFERENCES TblRoom (roomId))";
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "CREATE TABLE TblShift([shiftId] INT NOT NULL PRIMARY KEY IDENTITY, " +
@@ -127,20 +124,22 @@ namespace Klinikverwaltung
                         "[starDate] date," +
                         "[endDate] date," +
                         "[description] NVARCHAR (MAX)" +
-                        "CONSTRAINT Fk_staffID FOREIGN KEY (sId)" +
-                        "REFERENCES TblStaff (staffId)" +
-                        "ON DELETE CASCADE" +
-                        "ON UPDATE CASCADE)";
+                        "CONSTRAINT Fk_shift_staffID FOREIGN KEY (sId)" +
+                        "REFERENCES TblStaff (staffId))";
                     cmd.ExecuteNonQuery();
 
                     //test stuff
-                    cmd.CommandText = "insert into TblPatient values ('Peter', 'Fischer', 2001-02-02, 2023-02-23, " +
-                        "2023-05-20, 'Nothing important', 1);";
-                    cmd.CommandText += "insert into TblStaff values ('Hans', 'Hasenauer', 2001-02-02, 3400.00, " +
-                        "Doktor, 'Nothing important');";
-                    cmd.CommandText += "insert into TblAppointment values (1, 1, 2023-02-23, 1, " +
+                    cmd.CommandText = "insert into TblRoom values ('RaumRaum', 0)";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "insert into TblPatient values ('Peter', 'Fischer', '2001-02-02', '2023-02-23', " +
+                        "'2023-05-20', 'Nothing important', 1);";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "insert into TblStaff values ('Hans', 'Hasenauer', '2001-02-02', 3400.00, " +
+                        "'Doktor', 'Nothing important');";
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "insert into TblAppointment values (1, 1, '2023-02-23', 1, " +
                         "'dumb things happpening here')";
-                    cmd.CommandText += "insert into TblRoom values ('RaumRaum', 0)";
                     cmd.ExecuteNonQuery();
 
                     con.Close();
@@ -219,7 +218,7 @@ namespace Klinikverwaltung
 
                 cmd.CommandText = "select TblPatient.name, TblPatient.lastname, TblStaff.name, TblStaff.lastname, " +
                     "roomName from TblAppointment" +
-                    "where date = " + date;
+                    "where date = '" + date + "'";
                 sdr = cmd.ExecuteReader();
 
                 if (sdr.HasRows)

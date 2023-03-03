@@ -12,12 +12,12 @@ namespace Klinikverwaltung
 {
     public partial class FormSingleDay : Form
     {
-        private string date = string.Empty;
+        private DateTime date;
         List<string> lsPatient = new List<string>();
         List<string> lsStaff = new List<string>();
         List<string> lsRoomName = new List<string>();
 
-        public FormSingleDay(string date)
+        public FormSingleDay(DateTime date)
         {
             InitializeComponent();
             this.date = date;

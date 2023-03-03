@@ -107,15 +107,25 @@ namespace Klinikverwaltung
         {
             Panel? pnlNew = sender as Panel;
             Label? lblNew = new Label();
+            DateTime dateForSingleDayForms = savedDate;
 
             //foreach loop to get the date of the label as a parameter
             foreach (Control c in pnlNew.Controls)
             {
                 if (c is Label)
                     lblNew = c as Label;
+
+                if (lblNew.ForeColor == Color.Silver && Convert.ToInt32(lblNew.Text) < 15)
+                {
+                    dateForSingleDayForms = savedDate.AddDays(-llbl.IndexOf(lblNew));
+                }
+                else if (lblNew.ForeColor == Color.Silver && Convert.ToInt32(lblNew.Text) >= 15)
+                {
+
+                }
             }
 
-            FormSingleDay fsd = new FormSingleDay(lblNew.Text);
+            FormSingleDay fsd = new FormSingleDay(dateForSingleDayForms);
             fsd.ShowDialog();
         }
 
