@@ -23,6 +23,9 @@ namespace Klinikverwaltung
 
         private void FormCalender_Load(object sender, EventArgs e)
         {
+            lpnl.Clear();
+            llbl.Clear();
+            
             lblYearAndMonth.Text = DateTime.Today.ToString("MMMM yyyy");
 
             //create panels for each day on the calender
@@ -108,6 +111,7 @@ namespace Klinikverwaltung
             Panel? pnlNew = sender as Panel;
             Label? lblNew = new Label();
             DateTime dateForSingleDayForms = savedDate;
+            int month = savedDate.Month;
 
             //foreach loop to get the date of the label as a parameter
             foreach (Control c in pnlNew.Controls)
@@ -115,14 +119,30 @@ namespace Klinikverwaltung
                 if (c is Label)
                     lblNew = c as Label;
 
-                if (lblNew.ForeColor == Color.Silver && Convert.ToInt32(lblNew.Text) < 15)
+                if (lblNew.ForeColor == Color.Silver && Convert.ToInt32(lblNew.Text) > 15)
                 {
-                    dateForSingleDayForms = savedDate.AddDays(-llbl.IndexOf(lblNew));
+                    if (savedDate.Month == 1)
+                    {
+                        month = 12;
+                    }
+                    else
+                    {
+                        month -= 1;
+                    }
                 }
-                else if (lblNew.ForeColor == Color.Silver && Convert.ToInt32(lblNew.Text) >= 15)
+                else if (lblNew.ForeColor == Color.Silver && Convert.ToInt32(lblNew.Text) <= 15)
                 {
+                    if (savedDate.Month == 12)
+                    {
+                        month = 1;
+                    }
+                    else
+                    {
+                        month += 1;
+                    }
+                }
 
-                }
+                dateForSingleDayForms = new DateTime(savedDate.Year, month, Convert.ToInt32(lblNew.Text));
             }
 
             FormSingleDay fsd = new FormSingleDay(dateForSingleDayForms);

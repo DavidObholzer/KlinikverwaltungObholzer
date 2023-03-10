@@ -25,8 +25,8 @@ namespace Klinikverwaltung
 
         private void FormSingleDay_Load(object sender, EventArgs e)
         {
-            lblDate.Text = date;
-            List<List<string>> lsTemp = SqlCommunication.getAppointments(date);
+            lblDate.Text = date.ToString("dd. MMMM yyyy");
+            List<List<string>> lsTemp = SqlCommunication.getAppointments(date.ToString("yyyy-MM-dd"));
             lsPatient = lsTemp[0];
             lsStaff = lsTemp[1];
             lsRoomName = lsTemp[2];
@@ -37,6 +37,7 @@ namespace Klinikverwaltung
             int leftValue = 3;
 
             //for loop to get create buttons in a new row after 5 panels have been created
+            //idk about the calculation rn though
             for (int i = 0; i < lsPatient.Count / 5 + 0.9; i++)
             {
                 for (int i2 = 0; i2 < 5; i2++)
