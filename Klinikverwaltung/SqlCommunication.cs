@@ -217,8 +217,11 @@ namespace Klinikverwaltung
                 con.Open();
 
                 cmd.CommandText = "select TblPatient.name, TblPatient.lastname, TblStaff.name, TblStaff.lastname, " +
-                    "roomName from TblAppointment" +
-                    "where date = '" + date + "'";
+                    "roomName from TblAppointment " +
+                    "inner join TblPatient on (TblPatient.patientId = TblAppointment.pId) " +
+                    "inner join TblStaff on (TblStaff.staffId = TblAppointment.sId) " +
+                    "inner join TblRoom on (TblRoom.roomId = TblAppointment.roomNumber)";// " +
+                    //"where TblAppointment.date = '23.02.2023'";//'" + date + "'";
                 sdr = cmd.ExecuteReader();
 
                 if (sdr.HasRows)

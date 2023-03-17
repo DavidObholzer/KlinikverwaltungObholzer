@@ -33,18 +33,19 @@ namespace Klinikverwaltung
             
 
             //create buttons for each appointment
-            int topValue = 100;
+            int topValue = 10;
             int leftValue = 3;
 
             //for loop to get create buttons in a new row after 5 panels have been created
             //idk about the calculation rn though
-            for (int i = 0; i < lsPatient.Count / 5 + 0.9; i++)
+            int numberOfRows = Convert.ToInt32(Math.Round(lsPatient.Count / 5 + 0.5, MidpointRounding.AwayFromZero));
+            for (int i = 0; i < numberOfRows; i++)
             {
-                for (int i2 = 0; i2 < 5; i2++)
+                for (int i2 = 0; i2 < 5 && i2 < lsPatient.Count; i2++)
                 {
                     Panel pnlNew = new Panel();
                     pnlNew.Top = topValue;
-                    pnlNew.Left = 0;
+                    pnlNew.Left = leftValue;
                     pnlNew.Height = 140;
                     pnlNew.Width = 140;
                     pnlNew.BorderStyle = BorderStyle.FixedSingle;
@@ -53,8 +54,19 @@ namespace Klinikverwaltung
 
                     leftValue += pnlNew.Width+5;
                 }
-                topValue += 140;
+                pnlSingleDay.Height += 150;
+                topValue += 150;
                 leftValue = 0;
+            }
+
+            foreach (Panel p in pnlSingleDay.Controls)
+            {
+                Label lblNew = new Label();
+
+                lblNew.Text = "this is actually a date";
+                lblNew.Top = p.Height / 2 - 7;
+                lblNew.Left = p.Width / 2 - 50;
+                p.Controls.Add(lblNew);
             }
         }
 
