@@ -16,6 +16,7 @@ namespace Klinikverwaltung
         List<string> lsPatient = new List<string>();
         List<string> lsStaff = new List<string>();
         List<string> lsRoomName = new List<string>();
+        List<Panel> lsPanel = new List<Panel>();
 
         public FormSingleDay(DateTime date)
         {
@@ -26,15 +27,33 @@ namespace Klinikverwaltung
         private void FormSingleDay_Load(object sender, EventArgs e)
         {
             lblDate.Text = date.ToString("dd. MMMM yyyy");
+            updatePanelLayout();
+        }
+
+        public void pnlNew_Click(object sender, EventArgs e)
+        {
+            Panel? pnlNew = sender as Panel;
+            
+            if(MessageBox.Show("Wollen Sie diesen Termin löschen?", "Löschen", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                SqlCommunication.deleteAppointment(lsPanel.IndexOf(pnlNew));
+                pnlNew.Dispose();
+            }
+
+            updatePanelLayout();
+        }
+
+        public void updatePanelLayout()
+        {
             List<List<string>> lsTemp = SqlCommunication.getAppointments(date.ToString("yyyy-MM-dd"));
             lsPatient = lsTemp[0];
             lsStaff = lsTemp[1];
             lsRoomName = lsTemp[2];
-            
+
 
             //create buttons for each appointment
             int topValue = 10;
-            int leftValue = 3;
+            int leftValue = 5;
 
             //for loop to get create buttons in a new row after 5 panels have been created
             //idk about the calculation rn though
@@ -46,37 +65,31 @@ namespace Klinikverwaltung
                     Panel pnlNew = new Panel();
                     pnlNew.Top = topValue;
                     pnlNew.Left = leftValue;
-                    pnlNew.Height = 140;
-                    pnlNew.Width = 140;
+                    pnlNew.Height = 154;
+                    pnlNew.Width = 154;
                     pnlNew.BorderStyle = BorderStyle.FixedSingle;
                     pnlNew.Click += pnlNew_Click;
                     pnlSingleDay.Controls.Add(pnlNew);
+                    lsPanel.Add(pnlNew);
 
-                    leftValue += pnlNew.Width+5;
+                    leftValue += pnlNew.Width + 5;
                 }
-                pnlSingleDay.Height += 150;
-                topValue += 150;
-                leftValue = 0;
+                pnlSingleDay.Height += 164;
+                topValue += 164;
+                leftValue = 5;
             }
 
-            foreach (Panel p in pnlSingleDay.Controls)
+            //more panels than appointments
+            int i3 = 0;
+            foreach (Panel p in lsPanel)
             {
                 Label lblNew = new Label();
-
-                lblNew.Text = "this is actually a date";
+                
+                lblNew.Text = lsPatient[i3];
                 lblNew.Top = p.Height / 2 - 7;
                 lblNew.Left = p.Width / 2 - 50;
                 p.Controls.Add(lblNew);
-            }
-        }
-
-        public void pnlNew_Click(object sender, EventArgs e)
-        {
-            Panel? pnlNew = sender as Panel;
-            
-            if(MessageBox.Show("Wollen Sie diesen Termin löschen?", "Löschen", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                pnlNew.Dispose();
+                i3++;
             }
         }
     }

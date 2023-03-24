@@ -62,7 +62,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 450);
+            this.ClientSize = new System.Drawing.Size(824, 502);
             this.Controls.Add(this.btnAddAppointment);
             this.Controls.Add(this.pnlSingleDay);
             this.Controls.Add(this.lblDate);

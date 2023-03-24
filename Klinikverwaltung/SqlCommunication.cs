@@ -220,8 +220,8 @@ namespace Klinikverwaltung
                     "roomName from TblAppointment " +
                     "inner join TblPatient on (TblPatient.patientId = TblAppointment.pId) " +
                     "inner join TblStaff on (TblStaff.staffId = TblAppointment.sId) " +
-                    "inner join TblRoom on (TblRoom.roomId = TblAppointment.roomNumber)";// " +
-                    //"where TblAppointment.date = '23.02.2023'";//'" + date + "'";
+                    "inner join TblRoom on (TblRoom.roomId = TblAppointment.roomNumber) ";// +
+                    //"where TblAppointment.date = '" + date + "'";
                 sdr = cmd.ExecuteReader();
 
                 if (sdr.HasRows)
@@ -233,7 +233,7 @@ namespace Klinikverwaltung
                         lsRoomName.Add(sdr[4].ToString());
                     }
                 }
-
+                
                 con.Close();
             }
             catch (Exception ex)
@@ -248,6 +248,26 @@ namespace Klinikverwaltung
             appointments.Add(lsRoomName);
 
             return appointments;
+        }
+
+        public static void deleteAppointment(int id)
+        {
+            try
+            {
+                con.Open();
+
+                cmd.CommandText = "Delete from TblAppointment where appointmentId = " + id;
+
+                cmd.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
