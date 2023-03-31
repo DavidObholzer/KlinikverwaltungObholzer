@@ -209,6 +209,7 @@ namespace Klinikverwaltung
             List<string> lsPatient = new List<string>();
             List<string> lsStaff = new List<string>();
             List<string> lsRoomName = new List<string>();
+            List<string> lsId = new List<string>();
 
             
 
@@ -217,7 +218,7 @@ namespace Klinikverwaltung
                 con.Open();
 
                 cmd.CommandText = "select TblPatient.name, TblPatient.lastname, TblStaff.name, TblStaff.lastname, " +
-                    "roomName from TblAppointment " +
+                    "roomName, TblAppointment.appointmentId from TblAppointment " +
                     "inner join TblPatient on (TblPatient.patientId = TblAppointment.pId) " +
                     "inner join TblStaff on (TblStaff.staffId = TblAppointment.sId) " +
                     "inner join TblRoom on (TblRoom.roomId = TblAppointment.roomNumber) ";// +
@@ -231,6 +232,7 @@ namespace Klinikverwaltung
                         lsPatient.Add(sdr[0].ToString() + " " + sdr[1].ToString());
                         lsStaff.Add(sdr[2].ToString() + " " + sdr[3].ToString());
                         lsRoomName.Add(sdr[4].ToString());
+                        lsId.Add(sdr[5].ToString());
                     }
                 }
                 
@@ -246,6 +248,7 @@ namespace Klinikverwaltung
             appointments.Add(lsPatient);
             appointments.Add(lsStaff);
             appointments.Add(lsRoomName);
+            appointments.Add(lsId);
 
             return appointments;
         }

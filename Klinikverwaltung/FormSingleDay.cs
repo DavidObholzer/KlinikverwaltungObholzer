@@ -16,6 +16,7 @@ namespace Klinikverwaltung
         List<string> lsPatient = new List<string>();
         List<string> lsStaff = new List<string>();
         List<string> lsRoomName = new List<string>();
+        List<string> lsId = new List<string>();
         List<Panel> lsPanel = new List<Panel>();
 
         public FormSingleDay(DateTime date)
@@ -34,9 +35,11 @@ namespace Klinikverwaltung
         {
             Panel? pnlNew = sender as Panel;
             
-            if(MessageBox.Show("Wollen Sie diesen Termin löschen?", "Löschen", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+            MessageBox.Show(pnlNew.Tag.ToString());
+
+            if (MessageBox.Show("Wollen Sie diesen Termin löschen?", "Löschen", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                SqlCommunication.deleteAppointment(lsPanel.IndexOf(pnlNew));
+                SqlCommunication.deleteAppointment(Convert.ToInt32(pnlNew.Tag));
                 pnlNew.Dispose();
             }
 
@@ -49,7 +52,10 @@ namespace Klinikverwaltung
             lsPatient = lsTemp[0];
             lsStaff = lsTemp[1];
             lsRoomName = lsTemp[2];
+            lsId = lsTemp[3];
 
+            lsPanel.Clear();
+            pnlSingleDay.Controls.Clear();
 
             //create buttons for each appointment
             int topValue = 10;
@@ -58,9 +64,10 @@ namespace Klinikverwaltung
             //for loop to get create buttons in a new row after 5 panels have been created
             //idk about the calculation rn though
             int numberOfRows = Convert.ToInt32(Math.Round(lsPatient.Count / 5 + 0.5, MidpointRounding.AwayFromZero));
+            int iAppointmentCount = 0;
             for (int i = 0; i < numberOfRows; i++)
             {
-                for (int i2 = 0; i2 < 5 && i2 < lsPatient.Count; i2++)
+                for (int i2 = 0; i2 < 5 && iAppointmentCount < lsPatient.Count; i2++)
                 {
                     Panel pnlNew = new Panel();
                     pnlNew.Top = topValue;
@@ -69,25 +76,27 @@ namespace Klinikverwaltung
                     pnlNew.Width = 154;
                     pnlNew.BorderStyle = BorderStyle.FixedSingle;
                     pnlNew.Click += pnlNew_Click;
+                    pnlNew.Tag = lsId[iAppointmentCount];
                     pnlSingleDay.Controls.Add(pnlNew);
                     lsPanel.Add(pnlNew);
 
                     leftValue += pnlNew.Width + 5;
+                    iAppointmentCount++;
                 }
                 pnlSingleDay.Height += 164;
                 topValue += 164;
                 leftValue = 5;
             }
 
-            //more panels than appointments
+            //creates the labels for each appointment
             int i3 = 0;
             foreach (Panel p in lsPanel)
             {
                 Label lblNew = new Label();
                 
                 lblNew.Text = lsPatient[i3];
-                lblNew.Top = p.Height / 2 - 7;
-                lblNew.Left = p.Width / 2 - 50;
+                lblNew.Top = p.Height / 2 - lblNew.Height / 2;
+                lblNew.Left = p.Width / 2 - lblNew.Width / 2;
                 p.Controls.Add(lblNew);
                 i3++;
             }
