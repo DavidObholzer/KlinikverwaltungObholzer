@@ -99,6 +99,7 @@ namespace Klinikverwaltung
                 lblNew.Text = dateOfFirstDay.AddDays(dayAddition).Day.ToString();
                 lblNew.Top = p.Height / 2 - 7;
                 lblNew.Left = p.Width / 2 - 3;
+                lblNew.Click += lblNew_Click;
                 llbl.Add(lblNew);
                 p.Controls.Add(lblNew);
 
@@ -144,6 +145,41 @@ namespace Klinikverwaltung
 
                 dateForSingleDayForms = new DateTime(savedDate.Year, month, Convert.ToInt32(lblNew.Text));
             }
+
+            FormSingleDay fsd = new FormSingleDay(dateForSingleDayForms);
+            fsd.ShowDialog();
+        }
+
+        public void lblNew_Click(object? sender, EventArgs e)
+        {
+            Label? lblNew = sender as Label;
+            DateTime dateForSingleDayForms = savedDate;
+            int month = savedDate.Month;
+
+            if (lblNew.ForeColor == Color.Silver && Convert.ToInt32(lblNew.Text) > 15)
+            {
+                if (savedDate.Month == 1)
+                {
+                    month = 12;
+                }
+                else
+                {
+                    month -= 1;
+                }
+            }
+            else if (lblNew.ForeColor == Color.Silver && Convert.ToInt32(lblNew.Text) <= 15)
+            {
+                if (savedDate.Month == 12)
+                {
+                    month = 1;
+                }
+                else
+                {
+                    month += 1;
+                }
+            }
+
+            dateForSingleDayForms = new DateTime(savedDate.Year, month, Convert.ToInt32(lblNew.Text));
 
             FormSingleDay fsd = new FormSingleDay(dateForSingleDayForms);
             fsd.ShowDialog();

@@ -272,5 +272,27 @@ namespace Klinikverwaltung
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        //untested
+        public static void setAppointment(string pId, string sId, string date, string roomId, string description)
+        {
+            try
+            {
+                con.Open();
+
+                cmd.CommandText = "Insert into TblAppointment values(" + pId + ", " + sId + ", " + date + ", " + 
+                    roomId + ", " + description + ")";
+
+                cmd.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }

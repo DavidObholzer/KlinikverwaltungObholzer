@@ -31,7 +31,7 @@ namespace Klinikverwaltung
             updatePanelLayout();
         }
 
-        public void pnlNew_Click(object sender, EventArgs e)
+        public void pnlNew_Click(object? sender, EventArgs e)
         {
             Panel? pnlNew = sender as Panel;
             
@@ -41,6 +41,28 @@ namespace Klinikverwaltung
             {
                 SqlCommunication.deleteAppointment(Convert.ToInt32(pnlNew.Tag));
                 pnlNew.Dispose();
+            }
+
+            updatePanelLayout();
+        }
+
+        public void lblNew_Click(object? sender, EventArgs e)
+        {
+            Label? lblNew = sender as Label;
+
+            MessageBox.Show(lblNew.Tag.ToString());
+
+            if (MessageBox.Show("Wollen Sie diesen Termin löschen?", "Löschen", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                SqlCommunication.deleteAppointment(Convert.ToInt32(lblNew.Tag));
+                
+                foreach (Panel p in lsPanel)
+                {
+                    if (p.Tag.Equals(lblNew.Tag))
+                    {
+                        p.Dispose();
+                    }
+                }
             }
 
             updatePanelLayout();
@@ -97,6 +119,8 @@ namespace Klinikverwaltung
                 lblNew.Text = lsPatient[i3];
                 lblNew.Top = p.Height / 2 - lblNew.Height / 2;
                 lblNew.Left = p.Width / 2 - lblNew.Width / 2;
+                lblNew.Tag = p.Tag;
+                lblNew.Click += lblNew_Click;
                 p.Controls.Add(lblNew);
                 i3++;
             }
