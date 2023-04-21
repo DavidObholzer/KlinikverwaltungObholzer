@@ -57,6 +57,7 @@
             this.btnAddAppointment.TabIndex = 3;
             this.btnAddAppointment.Text = "Termin hinzufügen";
             this.btnAddAppointment.UseVisualStyleBackColor = true;
+            this.btnAddAppointment.Click += new System.EventHandler(this.btnAddAppointment_Click);
             // 
             // FormSingleDay
             // 

@@ -38,6 +38,8 @@
             this.txtDate = new System.Windows.Forms.TextBox();
             this.txtRoom = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
+            this.btn_addAppointment = new System.Windows.Forms.Button();
+            this.lbl_dateInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblStaff
@@ -89,29 +91,33 @@
             // 
             this.txtPatient.Location = new System.Drawing.Point(97, 43);
             this.txtPatient.Name = "txtPatient";
-            this.txtPatient.Size = new System.Drawing.Size(75, 23);
+            this.txtPatient.Size = new System.Drawing.Size(93, 23);
             this.txtPatient.TabIndex = 5;
+            this.txtPatient.TextChanged += new System.EventHandler(this.txtPatient_TextChanged);
             // 
             // txtStaff
             // 
             this.txtStaff.Location = new System.Drawing.Point(97, 87);
             this.txtStaff.Name = "txtStaff";
-            this.txtStaff.Size = new System.Drawing.Size(75, 23);
+            this.txtStaff.Size = new System.Drawing.Size(93, 23);
             this.txtStaff.TabIndex = 6;
+            this.txtStaff.TextChanged += new System.EventHandler(this.txtStaff_TextChanged);
             // 
             // txtDate
             // 
             this.txtDate.Location = new System.Drawing.Point(97, 131);
             this.txtDate.Name = "txtDate";
-            this.txtDate.Size = new System.Drawing.Size(75, 23);
+            this.txtDate.Size = new System.Drawing.Size(93, 23);
             this.txtDate.TabIndex = 7;
+            this.txtDate.TextChanged += new System.EventHandler(this.txtDate_TextChanged);
             // 
             // txtRoom
             // 
             this.txtRoom.Location = new System.Drawing.Point(97, 175);
             this.txtRoom.Name = "txtRoom";
-            this.txtRoom.Size = new System.Drawing.Size(75, 23);
+            this.txtRoom.Size = new System.Drawing.Size(93, 23);
             this.txtRoom.TabIndex = 8;
+            this.txtRoom.TextChanged += new System.EventHandler(this.txtRoom_TextChanged);
             // 
             // txtDescription
             // 
@@ -121,11 +127,33 @@
             this.txtDescription.Size = new System.Drawing.Size(289, 176);
             this.txtDescription.TabIndex = 9;
             // 
+            // btn_addAppointment
+            // 
+            this.btn_addAppointment.Enabled = false;
+            this.btn_addAppointment.Location = new System.Drawing.Point(237, 38);
+            this.btn_addAppointment.Name = "btn_addAppointment";
+            this.btn_addAppointment.Size = new System.Drawing.Size(149, 23);
+            this.btn_addAppointment.TabIndex = 10;
+            this.btn_addAppointment.Text = "Termin hinzufügen";
+            this.btn_addAppointment.UseVisualStyleBackColor = true;
+            this.btn_addAppointment.Click += new System.EventHandler(this.btn_addAppointment_Click);
+            // 
+            // lbl_dateInfo
+            // 
+            this.lbl_dateInfo.AutoSize = true;
+            this.lbl_dateInfo.Location = new System.Drawing.Point(237, 134);
+            this.lbl_dateInfo.Name = "lbl_dateInfo";
+            this.lbl_dateInfo.Size = new System.Drawing.Size(132, 15);
+            this.lbl_dateInfo.TabIndex = 11;
+            this.lbl_dateInfo.Text = "Jahr-Monat-Tag Format";
+            // 
             // FormAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(398, 407);
+            this.Controls.Add(this.lbl_dateInfo);
+            this.Controls.Add(this.btn_addAppointment);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtRoom);
             this.Controls.Add(this.txtDate);
@@ -155,5 +183,7 @@
         private TextBox txtDate;
         private TextBox txtRoom;
         private TextBox txtDescription;
+        private Button btn_addAppointment;
+        private Label lbl_dateInfo;
     }
 }

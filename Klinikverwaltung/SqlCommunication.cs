@@ -109,13 +109,13 @@ namespace Klinikverwaltung
                         "[pId] int, " +
                         "[sId] int, " +
                         "[date] date," +
-                        "[roomNumber] int," +
+                        "[rId] int," +
                         "[description] NVARCHAR (MAX), " +
                         "CONSTRAINT FK_patientId FOREIGN KEY (pId)" +
                         "REFERENCES TblPatient (patientId), " +
                         "CONSTRAINT FK_appointment_staffId FOREIGN KEY (sId)" +
                         "REFERENCES TblStaff (staffId), " +
-                        "CONSTRAINT FK_roomId FOREIGN KEY (roomNumber)" +
+                        "CONSTRAINT FK_roomId FOREIGN KEY (rId)" +
                         "REFERENCES TblRoom (roomId))";
                     cmd.ExecuteNonQuery();
 
@@ -221,8 +221,8 @@ namespace Klinikverwaltung
                     "roomName, TblAppointment.appointmentId from TblAppointment " +
                     "inner join TblPatient on (TblPatient.patientId = TblAppointment.pId) " +
                     "inner join TblStaff on (TblStaff.staffId = TblAppointment.sId) " +
-                    "inner join TblRoom on (TblRoom.roomId = TblAppointment.roomNumber) ";// +
-                    //"where TblAppointment.date = '" + date + "'";
+                    "inner join TblRoom on (TblRoom.roomId = TblAppointment.rId) " +
+                    "where TblAppointment.date = '" + date + "'";
                 sdr = cmd.ExecuteReader();
 
                 if (sdr.HasRows)
@@ -280,8 +280,8 @@ namespace Klinikverwaltung
             {
                 con.Open();
 
-                cmd.CommandText = "Insert into TblAppointment values(" + pId + ", " + sId + ", " + date + ", " + 
-                    roomId + ", " + description + ")";
+                cmd.CommandText = "Insert into TblAppointment values(" + pId + ", " + sId + ", '" + date + "', " + 
+                    roomId + ", '" + description + "')";
 
                 cmd.ExecuteNonQuery();
 

@@ -110,7 +110,7 @@ namespace Klinikverwaltung
                 leftValue = 5;
             }
 
-            //creates the labels for each appointment
+            //creates the labels for each appointment - not all info showed
             int i3 = 0;
             foreach (Panel p in lsPanel)
             {
@@ -124,6 +124,17 @@ namespace Klinikverwaltung
                 p.Controls.Add(lblNew);
                 i3++;
             }
+        }
+
+        private void btnAddAppointment_Click(object sender, EventArgs e)
+        {
+            FormAppointment fa = new FormAppointment(date);
+            
+            this.Hide();
+            fa.ShowDialog();
+            this.Show();
+
+            updatePanelLayout();
         }
     }
 }
