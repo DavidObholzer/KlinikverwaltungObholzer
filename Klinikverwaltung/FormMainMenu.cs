@@ -30,5 +30,13 @@ namespace Klinikverwaltung
             fc.ShowDialog();
             Show();
         }
+
+        private void btn_profiles_Click(object sender, EventArgs e)
+        {
+            FormProfile fp = new FormProfile();
+            Hide();
+            fp.ShowDialog();
+            Show();
+        }
     }
 }

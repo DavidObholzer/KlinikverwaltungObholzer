@@ -87,7 +87,6 @@ namespace Klinikverwaltung
                         "[birthday] date," +
                         "[dateOfArrival] date," +
                         "[plannedLeave] date," +
-                        "[notes] NVARCHAR (500)," +
                         "[roomID] int)";
                     cmd.ExecuteNonQuery();
 
@@ -96,8 +95,7 @@ namespace Klinikverwaltung
                         "[lastname] NVARCHAR (50), " +
                         "[birthday] date," +
                         "[monthlySalary] DECIMAL(8,2)," +
-                        "[profession] NVARCHAR (50)," +
-                        "[notes] NVARCHAR (500))";
+                        "[profession] NVARCHAR (50))";
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "CREATE TABLE TblRoom([roomId] INT NOT NULL PRIMARY KEY IDENTITY, " +
@@ -135,7 +133,7 @@ namespace Klinikverwaltung
                         "'2023-05-20', 'Nothing important', 1);";
                     cmd.ExecuteNonQuery();
                     cmd.CommandText = "insert into TblStaff values ('Hans', 'Hasenauer', '2001-02-02', 3400.00, " +
-                        "'Doktor', 'Nothing important');";
+                        "'Doktor');";
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "insert into TblAppointment values (1, 1, '2023-02-23', 1, " +
@@ -293,6 +291,32 @@ namespace Klinikverwaltung
                     con.Close();
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        public static void createStaff(string name, string lastname, string birthdate, string salary, string profession)
+        {
+            try
+            {
+                con.Open();
+
+                cmd.CommandText = "Insert into TblStaff values('" + name + "', '" + lastname + "', '" + birthdate + "', " +
+                    salary + ", '" + profession + "')";
+
+                cmd.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public static void changeStaff(string id, string name, string lastname, string birthdate, string salary, string profession)
+        {
+            
         }
     }
 }
