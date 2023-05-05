@@ -17,10 +17,10 @@ namespace Klinikverwaltung
             InitializeComponent();
         }
 
-        private void btnAddProfile_Click(object sender, EventArgs e)
+        private void btnAddStaff_Click(object sender, EventArgs e)
         {
-            btnAddProfile.Enabled = false;
-            btnChangeProfile.Enabled = true;
+            btnAddStaff.Enabled = false;
+            btnChangeStaff.Enabled = true;
             txtId.Enabled = false;
             txtName.Enabled = true;
             txtLastname.Enabled = true;
@@ -29,10 +29,10 @@ namespace Klinikverwaltung
             txtProfession.Enabled = true;
         }
 
-        private void btnChangeProfile_Click(object sender, EventArgs e)
+        private void btnChangeStaff_Click(object sender, EventArgs e)
         {
-            btnChangeProfile.Enabled = false;
-            btnAddProfile.Enabled = true;
+            btnChangeStaff.Enabled = false;
+            btnAddStaff.Enabled = true;
             txtId.Enabled = true;
             txtName.Enabled = true;
             txtLastname.Enabled = true;
@@ -43,7 +43,16 @@ namespace Klinikverwaltung
 
         private void btnComplete_Click(object sender, EventArgs e)
         {
-
+            if (!btnAddStaff.Enabled)
+            {
+                SqlCommunication.createStaff(txtName.Text, txtLastname.Text, txtBirthday.Text, txtSalary.Text, txtProfession.Text);
+            }
+            else
+            {
+                SqlCommunication.changeStaff(txtId.Text, txtName.Text, txtLastname.Text, txtBirthday.Text, txtSalary.Text, txtProfession.Text);
+            }
+            
+            
         }
     }
 }

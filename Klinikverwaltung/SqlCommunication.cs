@@ -78,7 +78,8 @@ namespace Klinikverwaltung
 
                     cmd.CommandText = "CREATE TABLE TblUser([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[username] NVARCHAR (50), " +
-                        "[password] NVARCHAR (100))";
+                        "[password] NVARCHAR (100)," +
+                        "[admin] BOOLEAN)";
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "CREATE TABLE TblPatient([patientId] INT NOT NULL PRIMARY KEY IDENTITY, " +
@@ -151,15 +152,35 @@ namespace Klinikverwaltung
             }
         }
 
-        static public void insertIntoUser(string username, string password)
+        static public void insertIntoUser(string username, string password, string admin)
         {
             try
             {
                 con.Open();
 
-                cmd.CommandText = "insert into TblUser values ('" + username + "', '" + BCrypt.HashPassword(password, BCrypt.GenerateSalt()) + "')";
+                cmd.CommandText = "insert into TblUser values ('" + username + "', '" + BCrypt.HashPassword(password, BCrypt.GenerateSalt())
+                    + "', " + admin + ")";
                 cmd.ExecuteNonQuery();
                 
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        static public void deleteUser(string id)
+        {
+            try
+            {
+                con.Open();
+
+                cmd.CommandText = "delete from TblUser where id= " + id;
+                cmd.ExecuteNonQuery();
+
                 con.Close();
             }
             catch (Exception ex)
@@ -305,6 +326,7 @@ namespace Klinikverwaltung
                 cmd.ExecuteNonQuery();
 
                 con.Close();
+                MessageBox.Show("Aktion erfolgreich ausgeführt", "Info", MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
@@ -314,9 +336,27 @@ namespace Klinikverwaltung
             }
         }
 
-        public static void changeStaff(string id, string name, string lastname, string birthdate, string salary, string profession)
+        public static void changeStaff(string id, string name, string lastname, string birthday, string salary, string profession)
         {
-            
+            try
+            {
+                con.Open();
+
+                cmd.CommandText = "Update TblStaff set name='" + name + "', lastname='" + lastname + "', birthday='" + birthday + 
+                    "', monthlySalary=" + salary + ", profession='" + profession + "' " +
+                    "where staffId = " + id;
+
+                cmd.ExecuteNonQuery();
+
+                con.Close();
+                MessageBox.Show("Aktion erfolgreich ausgeführt", "Info", MessageBoxButtons.OK);
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
