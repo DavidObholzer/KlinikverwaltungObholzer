@@ -19,6 +19,7 @@ namespace Klinikverwaltung
 
         private void btnAddStaff_Click(object sender, EventArgs e)
         {
+            btnComplete.Enabled = true;
             btnAddStaff.Enabled = false;
             btnChangeStaff.Enabled = true;
             txtId.Enabled = false;
@@ -31,6 +32,7 @@ namespace Klinikverwaltung
 
         private void btnChangeStaff_Click(object sender, EventArgs e)
         {
+            btnComplete.Enabled = true;
             btnChangeStaff.Enabled = false;
             btnAddStaff.Enabled = true;
             txtId.Enabled = true;

@@ -43,11 +43,11 @@
             this.lblId = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
             this.btnComplete = new System.Windows.Forms.Button();
+            this.lblFormat = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAddStaff
             // 
-            this.btnAddStaff.Enabled = false;
             this.btnAddStaff.Location = new System.Drawing.Point(12, 278);
             this.btnAddStaff.Name = "btnAddStaff";
             this.btnAddStaff.Size = new System.Drawing.Size(149, 36);
@@ -143,7 +143,6 @@
             // 
             // btnChangeStaff
             // 
-            this.btnChangeStaff.Enabled = false;
             this.btnChangeStaff.Location = new System.Drawing.Point(167, 278);
             this.btnChangeStaff.Name = "btnChangeStaff";
             this.btnChangeStaff.Size = new System.Drawing.Size(149, 36);
@@ -180,11 +179,21 @@
             this.btnComplete.UseVisualStyleBackColor = true;
             this.btnComplete.Click += new System.EventHandler(this.btnComplete_Click);
             // 
+            // lblFormat
+            // 
+            this.lblFormat.AutoSize = true;
+            this.lblFormat.Location = new System.Drawing.Point(12, 166);
+            this.lblFormat.Name = "lblFormat";
+            this.lblFormat.Size = new System.Drawing.Size(77, 15);
+            this.lblFormat.TabIndex = 31;
+            this.lblFormat.Text = "yyyy-MM-dd";
+            // 
             // FormStaff
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(337, 395);
+            this.Controls.Add(this.lblFormat);
             this.Controls.Add(this.btnComplete);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.lblId);
@@ -224,5 +233,6 @@
         private Label lblId;
         private TextBox txtId;
         private Button btnComplete;
+        private Label lblFormat;
     }
 }

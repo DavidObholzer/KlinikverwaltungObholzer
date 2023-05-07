@@ -79,7 +79,12 @@ namespace Klinikverwaltung
                     cmd.CommandText = "CREATE TABLE TblUser([Id] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[username] NVARCHAR (50), " +
                         "[password] NVARCHAR (100)," +
-                        "[admin] BOOLEAN)";
+                        "[admin] BIT)";
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "CREATE TABLE TblRoom([roomId] INT NOT NULL PRIMARY KEY IDENTITY, " +
+                        "[roomName] NVARCHAR (50), " +
+                        "[floorLevel] int)";
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "CREATE TABLE TblPatient([patientId] INT NOT NULL PRIMARY KEY IDENTITY, " +
@@ -88,7 +93,9 @@ namespace Klinikverwaltung
                         "[birthday] date," +
                         "[dateOfArrival] date," +
                         "[plannedLeave] date," +
-                        "[roomID] int)";
+                        "[roomId] int, " +
+                        "CONSTRAINT FK_patient_roomId FOREIGN KEY (roomId)" +
+                        "REFERENCES TblRoom (roomId))";
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "CREATE TABLE TblStaff([staffId] INT NOT NULL PRIMARY KEY IDENTITY, " +
@@ -99,29 +106,24 @@ namespace Klinikverwaltung
                         "[profession] NVARCHAR (50))";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "CREATE TABLE TblRoom([roomId] INT NOT NULL PRIMARY KEY IDENTITY, " +
-                        "[roomName] NVARCHAR (50), " +
-                        "[floorLevel] int)";
-                    cmd.ExecuteNonQuery();
-
                     cmd.CommandText = "CREATE TABLE TblAppointment([appointmentId] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[pId] int, " +
                         "[sId] int, " +
                         "[date] date," +
                         "[rId] int," +
                         "[description] NVARCHAR (MAX), " +
-                        "CONSTRAINT FK_patientId FOREIGN KEY (pId)" +
+                        "CONSTRAINT FK_appointment_patientId FOREIGN KEY (pId)" +
                         "REFERENCES TblPatient (patientId), " +
                         "CONSTRAINT FK_appointment_staffId FOREIGN KEY (sId)" +
                         "REFERENCES TblStaff (staffId), " +
-                        "CONSTRAINT FK_roomId FOREIGN KEY (rId)" +
+                        "CONSTRAINT FK_appointment_roomId FOREIGN KEY (rId)" +
                         "REFERENCES TblRoom (roomId))";
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "CREATE TABLE TblShift([shiftId] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[sId] int, " +
-                        "[starDate] date," +
-                        "[endDate] date," +
+                        "[starDate] smalldatetime," +
+                        "[endDate] smalldatetime," +
                         "[description] NVARCHAR (MAX)" +
                         "CONSTRAINT Fk_shift_staffID FOREIGN KEY (sId)" +
                         "REFERENCES TblStaff (staffId))";
@@ -130,11 +132,13 @@ namespace Klinikverwaltung
                     //test stuff
                     cmd.CommandText = "insert into TblRoom values ('RaumRaum', 0)";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = "insert into TblPatient values ('Peter', 'Fischer', '2001-02-02', '2023-02-23', " +
-                        "'2023-05-20', 'Nothing important', 1);";
-                    cmd.ExecuteNonQuery();
+                    
                     cmd.CommandText = "insert into TblStaff values ('Hans', 'Hasenauer', '2001-02-02', 3400.00, " +
                         "'Doktor');";
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "insert into TblPatient values ('Peter', 'Fischer', '2001-02-02', '2023-02-23', " +
+                        "'2023-05-20', 1);";
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "insert into TblAppointment values (1, 1, '2023-02-23', 1, " +
@@ -199,6 +203,12 @@ namespace Klinikverwaltung
                 con.Open();
 
                 cmd.CommandText = "select password from TblUser where username = '" + username + "';";
+
+                if (cmd.ExecuteScalar() == null)
+                {
+                    con.Close();
+                    return false;
+                }
 
                 if (BCrypt.CheckPassword(password, cmd.ExecuteScalar().ToString()))
                 {

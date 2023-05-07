@@ -19,6 +19,7 @@ namespace Klinikverwaltung
 
         private void btnAddProfile_Click(object sender, EventArgs e)
         {
+            btnComplete.Enabled = true;
             btnAddProfile.Enabled = false;
             txtId.Enabled = false;
             btnDeleteProfile.Enabled = true;
@@ -26,12 +27,11 @@ namespace Klinikverwaltung
             txtPassword.Enabled = true;
             txtPassword2.Enabled = true;
             chbAdmin.Enabled = true;
-            
-            
         }
 
         private void btnDeleteProfile_Click(object sender, EventArgs e)
         {
+            btnComplete.Enabled = true;
             btnAddProfile.Enabled = true;
             txtId.Enabled = true;
             btnDeleteProfile.Enabled = false;
@@ -47,11 +47,11 @@ namespace Klinikverwaltung
             {
                 if (chbAdmin.Checked)
                 {
-                    SqlCommunication.insertIntoUser(txtUsername.Text, txtPassword.Text, "true");
+                    SqlCommunication.insertIntoUser(txtUsername.Text, txtPassword.Text, "1");
                 }
                 else
                 {
-                    SqlCommunication.insertIntoUser(txtUsername.Text, txtPassword.Text, "false");
+                    SqlCommunication.insertIntoUser(txtUsername.Text, txtPassword.Text, "0");
                 }
             }
             else

@@ -38,5 +38,20 @@ namespace Klinikverwaltung
             fp.ShowDialog();
             Show();
         }
+
+        private void btnStaff_Click(object sender, EventArgs e)
+        {
+            FormStaff fs = new FormStaff();
+            Hide();
+            fs.ShowDialog();
+            Show();
+        }
+
+        private void btnDienstplan_Click(object sender, EventArgs e)
+        {
+            FormShift fs = new FormShift();
+            fs.ShowDialog();
+            Show();
+        }
     }
 }

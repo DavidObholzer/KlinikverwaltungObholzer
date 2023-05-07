@@ -16,7 +16,17 @@ namespace Klinikverwaltung
         {
             if (SqlCommunication.login(txtUsername.Text, txtPassword.Text))
             {
-                MessageBox.Show("Login successful");
+                MessageBox.Show("Login successful", "Info",MessageBoxButtons.OK);
+                
+                FormMainMenu fmm = new FormMainMenu();
+
+                Hide();
+                fmm.ShowDialog();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Benutzername und Passwort stimmen nicht überein", "Info", MessageBoxButtons.OK);
             }
         }
 

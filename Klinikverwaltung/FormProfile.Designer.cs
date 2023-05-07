@@ -106,7 +106,6 @@
             // 
             // btnDeleteProfile
             // 
-            this.btnDeleteProfile.Enabled = false;
             this.btnDeleteProfile.Location = new System.Drawing.Point(191, 236);
             this.btnDeleteProfile.Name = "btnDeleteProfile";
             this.btnDeleteProfile.Size = new System.Drawing.Size(173, 36);
@@ -117,7 +116,6 @@
             // 
             // btnAddProfile
             // 
-            this.btnAddProfile.Enabled = false;
             this.btnAddProfile.Location = new System.Drawing.Point(12, 236);
             this.btnAddProfile.Name = "btnAddProfile";
             this.btnAddProfile.Size = new System.Drawing.Size(173, 36);
