@@ -30,6 +30,8 @@
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlTimetable = new System.Windows.Forms.Panel();
+            this.btnForwardWeek = new System.Windows.Forms.Button();
+            this.btnBackWeek = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -49,11 +51,33 @@
             this.pnlTimetable.Size = new System.Drawing.Size(770, 360);
             this.pnlTimetable.TabIndex = 1;
             // 
+            // btnForwardWeek
+            // 
+            this.btnForwardWeek.Location = new System.Drawing.Point(707, 35);
+            this.btnForwardWeek.Name = "btnForwardWeek";
+            this.btnForwardWeek.Size = new System.Drawing.Size(75, 23);
+            this.btnForwardWeek.TabIndex = 11;
+            this.btnForwardWeek.Text = ">";
+            this.btnForwardWeek.UseVisualStyleBackColor = true;
+            this.btnForwardWeek.Click += new System.EventHandler(this.btnForwardWeek_Click);
+            // 
+            // btnBackWeek
+            // 
+            this.btnBackWeek.Location = new System.Drawing.Point(12, 35);
+            this.btnBackWeek.Name = "btnBackWeek";
+            this.btnBackWeek.Size = new System.Drawing.Size(75, 23);
+            this.btnBackWeek.TabIndex = 10;
+            this.btnBackWeek.Text = "<";
+            this.btnBackWeek.UseVisualStyleBackColor = true;
+            this.btnBackWeek.Click += new System.EventHandler(this.btnBackWeek_Click);
+            // 
             // FormShift
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 486);
+            this.Controls.Add(this.btnForwardWeek);
+            this.Controls.Add(this.btnBackWeek);
             this.Controls.Add(this.pnlTimetable);
             this.Controls.Add(this.lblTitle);
             this.Name = "FormShift";
@@ -68,5 +92,7 @@
 
         private Label lblTitle;
         private Panel pnlTimetable;
+        private Button btnForwardWeek;
+        private Button btnBackWeek;
     }
 }
