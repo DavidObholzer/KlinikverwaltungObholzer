@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Collections;
 
 namespace Klinikverwaltung
 {
@@ -122,7 +123,7 @@ namespace Klinikverwaltung
 
                     cmd.CommandText = "CREATE TABLE TblShift([shiftId] INT NOT NULL PRIMARY KEY IDENTITY, " +
                         "[sId] int, " +
-                        "[starDate] smalldatetime," +
+                        "[startDate] smalldatetime," +
                         "[endDate] smalldatetime," +
                         "[description] NVARCHAR (MAX)" +
                         "CONSTRAINT Fk_shift_staffID FOREIGN KEY (sId)" +
@@ -234,6 +235,7 @@ namespace Klinikverwaltung
         public static List<List<string>> getAppointments(string date)
         {
             //returns a list of appointments on a certain date
+            //should probably be replaced by a class 
             List<List<string>> appointments = new List<List<string>>();
             List<string> lsPatient = new List<string>();
             List<string> lsStaff = new List<string>();
@@ -367,6 +369,64 @@ namespace Klinikverwaltung
                     con.Close();
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        public static bool checkStaffId(string id)
+        {
+            bool exist = false;
+            try
+            {
+                con.Open();
+                cmd.CommandText = "SELECT COUNT(*) FROM TblStaff WHERE staffId = " + id;
+
+                exist = Convert.ToInt32(cmd.ExecuteScalar()) == 1;
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
+
+            return exist;
+        }
+
+        public static List<Shift> getShifts(string id)
+        {
+            List<Shift> lShift = new List<Shift>();
+            try
+            {
+                con.Open();
+                cmd.CommandText = "SELECT * FROM TblShift WHERE sId = " + id
+                    + " order by startDate";
+
+                sdr = cmd.ExecuteReader();
+
+                if (sdr.HasRows)
+                {
+                    while (sdr.Read())
+                    {
+                        Shift newShift = new Shift();
+                        newShift.shiftId = sdr.GetInt32(0);
+                        newShift.sId = sdr.GetInt32(1);
+                        newShift.startDate = sdr.GetDateTime(2);
+                        newShift.endDate = sdr.GetDateTime(3);
+                        //newShift.description = sdr.GetString(4);
+                        lShift.Add(newShift);
+                    }
+                }
+
+                con.Close ();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
+
+            return lShift;
         }
     }
 }

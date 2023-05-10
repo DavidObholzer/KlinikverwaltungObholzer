@@ -14,6 +14,9 @@ namespace Klinikverwaltung
     {
         DateTime savedDate = new DateTime();
         List<Label> lDateLabels = new List<Label>();
+        List<Panel> lTimePanels = new List<Panel>();
+        List<Shift> lShift = new List<Shift>();
+        bool correctId = false;
 
         public FormShift()
         {
@@ -26,6 +29,7 @@ namespace Klinikverwaltung
             int leftValue = 0;
             int startTime = 0;
             int endTime = 1;
+            
 
             //gets todays date
             DateTime dateOfToday = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
@@ -72,14 +76,15 @@ namespace Klinikverwaltung
                     pnlNew.Left = leftValue;
                     pnlNew.Height = 15;
                     pnlNew.Width = 110;
+                    pnlNew.Tag = savedDate.AddDays(dayAddition).AddHours(startTime);
                     pnlNew.BorderStyle = BorderStyle.FixedSingle;
+                    lTimePanels.Add(pnlNew);
                     pnlTimetable.Controls.Add(pnlNew);
 
                     Label lblNew = new Label();
                     lblNew.Text = startTime + ":00 - " + endTime + ":00";
                     lblNew.Left = pnlNew.Width / 2 - lblNew.Width / 4;
                     pnlNew.Controls.Add(lblNew);
-
                     topValue += pnlNew.Height;
                     startTime++;
                     endTime++;
@@ -139,30 +144,87 @@ namespace Klinikverwaltung
                     break;
             }
 
+            int weekAddition = 0;
+
             if (forward)
             {
-                savedDate = savedDate.AddDays(7);
+                weekAddition = 7;
             }
             else
             {
-                savedDate = savedDate.AddDays(-7);
+                weekAddition = -7;
             }
+
+            savedDate= savedDate.AddDays(weekAddition);
 
             foreach (Label lbl in lDateLabels)
             {
                 lbl.Text = savedDate.AddDays(dayAddition).ToString("D");
                 dayAddition++;
             }
+
+            foreach (Panel pnl in lTimePanels)
+            {
+                DateTime dtFromTag = DateTime.Parse(pnl.Tag.ToString());
+                pnl.Tag = dtFromTag.AddDays(weekAddition);
+            }
         }
 
         private void btnBackWeek_Click(object sender, EventArgs e)
         {
             updateLabels(false);
+            colorShifts();
         }
 
         private void btnForwardWeek_Click(object sender, EventArgs e)
         {
             updateLabels(true);
+            colorShifts();
+        }
+        
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            correctId = SqlCommunication.checkStaffId(txtId.Text);
+            colorShifts();
+        }
+
+        private void txtId_TextChanged(object sender, EventArgs e)
+        {
+            correctId = false;
+        }
+
+        private void colorShifts()
+        {
+            if (correctId)
+            {
+                lShift = SqlCommunication.getShifts(txtId.Text);
+
+                foreach (Panel pnl in lTimePanels)
+                {
+                    foreach (Shift shift in lShift)
+                    {
+                        if (DateTime.Parse(pnl.Tag.ToString()) >= shift.startDate
+                            && DateTime.Parse(pnl.Tag.ToString()) < shift.endDate)
+                        {
+                            pnl.BackColor = Color.LightBlue;
+                            break;
+                        }
+                        else
+                        {
+                            pnl.BackColor = Color.White;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Diese Id existiert entweder nicht oder dem Mitarbeiter wurden noch keine Arbeitszeiten zugewiesen", "Info", MessageBoxButtons.OK);
+
+                foreach (Panel pnl in lTimePanels)
+                {
+                    pnl.BackColor = Color.White;
+                }
+            }
         }
     }
 }

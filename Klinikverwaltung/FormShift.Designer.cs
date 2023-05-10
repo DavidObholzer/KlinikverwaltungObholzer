@@ -32,6 +32,9 @@
             this.pnlTimetable = new System.Windows.Forms.Panel();
             this.btnForwardWeek = new System.Windows.Forms.Button();
             this.btnBackWeek = new System.Windows.Forms.Button();
+            this.lblEmployee = new System.Windows.Forms.Label();
+            this.txtId = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -53,7 +56,7 @@
             // 
             // btnForwardWeek
             // 
-            this.btnForwardWeek.Location = new System.Drawing.Point(707, 35);
+            this.btnForwardWeek.Location = new System.Drawing.Point(707, 12);
             this.btnForwardWeek.Name = "btnForwardWeek";
             this.btnForwardWeek.Size = new System.Drawing.Size(75, 23);
             this.btnForwardWeek.TabIndex = 11;
@@ -63,7 +66,7 @@
             // 
             // btnBackWeek
             // 
-            this.btnBackWeek.Location = new System.Drawing.Point(12, 35);
+            this.btnBackWeek.Location = new System.Drawing.Point(12, 12);
             this.btnBackWeek.Name = "btnBackWeek";
             this.btnBackWeek.Size = new System.Drawing.Size(75, 23);
             this.btnBackWeek.TabIndex = 10;
@@ -71,11 +74,41 @@
             this.btnBackWeek.UseVisualStyleBackColor = true;
             this.btnBackWeek.Click += new System.EventHandler(this.btnBackWeek_Click);
             // 
+            // lblEmployee
+            // 
+            this.lblEmployee.AutoSize = true;
+            this.lblEmployee.Location = new System.Drawing.Point(12, 41);
+            this.lblEmployee.Name = "lblEmployee";
+            this.lblEmployee.Size = new System.Drawing.Size(144, 15);
+            this.lblEmployee.TabIndex = 12;
+            this.lblEmployee.Text = "Mitarbeiter ID auswählen: ";
+            // 
+            // txtId
+            // 
+            this.txtId.Location = new System.Drawing.Point(162, 38);
+            this.txtId.Name = "txtId";
+            this.txtId.Size = new System.Drawing.Size(66, 23);
+            this.txtId.TabIndex = 13;
+            this.txtId.TextChanged += new System.EventHandler(this.txtId_TextChanged);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(234, 38);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(76, 23);
+            this.btnSearch.TabIndex = 14;
+            this.btnSearch.Text = "suchen";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // FormShift
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 486);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.txtId);
+            this.Controls.Add(this.lblEmployee);
             this.Controls.Add(this.btnForwardWeek);
             this.Controls.Add(this.btnBackWeek);
             this.Controls.Add(this.pnlTimetable);
@@ -94,5 +127,8 @@
         private Panel pnlTimetable;
         private Button btnForwardWeek;
         private Button btnBackWeek;
+        private Label lblEmployee;
+        private TextBox txtId;
+        private Button btnSearch;
     }
 }
