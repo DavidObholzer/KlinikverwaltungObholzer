@@ -142,11 +142,17 @@ namespace Klinikverwaltung
                         "'2023-05-20', 1);";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "insert into TblAppointment values (1, 1, '2023-02-23', 1, " +
+                    cmd.CommandText = "insert into TblAppointment values (1, 1, '2023-05-12', 1, " +
                         "'dumb things happpening here')";
                     cmd.ExecuteNonQuery();
 
+                    cmd.CommandText = "insert into TblShift values (1, 1, '2023-05-12 08:00:00', " +
+                        "'2023-05-12 12:00:00', 'lorem ipsum')";
+                    cmd.ExecuteNonQuery();
+
                     con.Close();
+
+                    insertIntoUser("david", "hey there", "true");
                 }
             }
             catch (Exception ex)

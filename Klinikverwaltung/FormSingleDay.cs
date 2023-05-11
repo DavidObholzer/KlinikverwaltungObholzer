@@ -50,8 +50,6 @@ namespace Klinikverwaltung
         {
             Label? lblNew = sender as Label;
 
-            MessageBox.Show(lblNew.Tag.ToString());
-
             if (MessageBox.Show("Wollen Sie diesen Termin löschen?", "Löschen", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 SqlCommunication.deleteAppointment(Convert.ToInt32(lblNew.Tag));

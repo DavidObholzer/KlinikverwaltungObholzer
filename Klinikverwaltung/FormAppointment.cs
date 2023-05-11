@@ -28,7 +28,7 @@ namespace Klinikverwaltung
             }
             else if (!Int32.TryParse(txtPatient.Text, out int unused) || !Int32.TryParse(txtStaff.Text, out int unused2))
             {
-                MessageBox.Show("Nur natürliche Zahlen bei den IDs eingeben!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nur natürliche Zahlen (ohne 0) bei den IDs eingeben!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 btn_addAppointment.Enabled = false;
             }
             else
