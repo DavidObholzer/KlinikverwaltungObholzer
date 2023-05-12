@@ -34,8 +34,6 @@ namespace Klinikverwaltung
         public void pnlNew_Click(object? sender, EventArgs e)
         {
             Panel? pnlNew = sender as Panel;
-            
-            MessageBox.Show(pnlNew.Tag.ToString());
 
             if (MessageBox.Show("Wollen Sie diesen Termin löschen?", "Löschen", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
             {
