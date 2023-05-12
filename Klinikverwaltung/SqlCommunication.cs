@@ -146,7 +146,7 @@ namespace Klinikverwaltung
                         "'dumb things happpening here')";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "insert into TblShift values (1, 1, '2023-05-12 08:00:00', " +
+                    cmd.CommandText = "insert into TblShift values (1, '2023-05-12 08:00:00', " +
                         "'2023-05-12 12:00:00', 'lorem ipsum')";
                     cmd.ExecuteNonQuery();
 
@@ -170,7 +170,7 @@ namespace Klinikverwaltung
                 con.Open();
 
                 cmd.CommandText = "insert into TblUser values ('" + username + "', '" + BCrypt.HashPassword(password, BCrypt.GenerateSalt())
-                    + "', " + admin + ")";
+                    + "', '" + admin + "')";
                 cmd.ExecuteNonQuery();
                 
                 con.Close();
