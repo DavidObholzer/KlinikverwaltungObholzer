@@ -152,7 +152,7 @@ namespace Klinikverwaltung
 
                     con.Close();
 
-                    insertIntoUser("david", "hey there", "true");
+                    insertIntoUser("david", "test", "true");
                 }
             }
             catch (Exception ex)
