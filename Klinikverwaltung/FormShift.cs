@@ -17,6 +17,7 @@ namespace Klinikverwaltung
         List<Panel> lTimePanels = new List<Panel>();
         List<Shift> lShift = new List<Shift>();
         bool correctId = false;
+        bool textChanged = true;
 
         public FormShift()
         {
@@ -185,16 +186,22 @@ namespace Klinikverwaltung
         private void btnSearch_Click(object sender, EventArgs e)
         {
             correctId = SqlCommunication.checkStaffId(txtId.Text);
+            textChanged = false;
             colorShifts();
         }
 
         private void txtId_TextChanged(object sender, EventArgs e)
         {
-            correctId = false;
+            textChanged = true;
         }
 
         private void colorShifts()
         {
+            if (textChanged)
+            {
+                return;
+            }
+            
             if (correctId)
             {
                 lShift = SqlCommunication.getShifts(txtId.Text);

@@ -32,6 +32,7 @@
             this.btn_profiles = new System.Windows.Forms.Button();
             this.btnStaff = new System.Windows.Forms.Button();
             this.btnDienstplan = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCalender
@@ -74,11 +75,22 @@
             this.btnDienstplan.UseVisualStyleBackColor = true;
             this.btnDienstplan.Click += new System.EventHandler(this.btnDienstplan_Click);
             // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTitle.Location = new System.Drawing.Point(263, 36);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(253, 45);
+            this.lblTitle.TabIndex = 4;
+            this.lblTitle.Text = "Klinikverwaltung";
+            // 
             // FormMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnDienstplan);
             this.Controls.Add(this.btnStaff);
             this.Controls.Add(this.btn_profiles);
@@ -87,6 +99,7 @@
             this.Text = "FormMainMenu";
             this.Load += new System.EventHandler(this.FormMainMenu_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -96,5 +109,6 @@
         private Button btn_profiles;
         private Button btnStaff;
         private Button btnDienstplan;
+        private Label lblTitle;
     }
 }
