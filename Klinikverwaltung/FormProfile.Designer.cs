@@ -41,6 +41,7 @@
             this.lblPassword2 = new System.Windows.Forms.Label();
             this.lblAdmin = new System.Windows.Forms.Label();
             this.chbAdmin = new System.Windows.Forms.CheckBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblId
@@ -160,11 +161,22 @@
             this.chbAdmin.Text = "checkBox1";
             this.chbAdmin.UseVisualStyleBackColor = true;
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(370, 32);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 45;
+            this.btnSearch.Text = "Suchen";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // FormProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 335);
+            this.ClientSize = new System.Drawing.Size(456, 335);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.chbAdmin);
             this.Controls.Add(this.lblAdmin);
             this.Controls.Add(this.txtPassword2);
@@ -199,5 +211,6 @@
         private Label lblPassword2;
         private Label lblAdmin;
         private CheckBox chbAdmin;
+        private Button btnSearch;
     }
 }

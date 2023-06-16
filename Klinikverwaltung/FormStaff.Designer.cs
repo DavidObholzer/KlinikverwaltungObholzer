@@ -44,6 +44,7 @@
             this.txtId = new System.Windows.Forms.TextBox();
             this.btnComplete = new System.Windows.Forms.Button();
             this.lblFormat = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAddStaff
@@ -188,11 +189,22 @@
             this.lblFormat.TabIndex = 31;
             this.lblFormat.Text = "yyyy-MM-dd";
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(323, 21);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 32;
+            this.btnSearch.Text = "Suchen";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // FormStaff
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 395);
+            this.ClientSize = new System.Drawing.Size(410, 395);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.lblFormat);
             this.Controls.Add(this.btnComplete);
             this.Controls.Add(this.txtId);
@@ -234,5 +246,6 @@
         private TextBox txtId;
         private Button btnComplete;
         private Label lblFormat;
+        private Button btnSearch;
     }
 }

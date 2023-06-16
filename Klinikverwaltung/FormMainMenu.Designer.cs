@@ -57,6 +57,7 @@
             // 
             // btnStaff
             // 
+            this.btnStaff.Enabled = false;
             this.btnStaff.Location = new System.Drawing.Point(305, 232);
             this.btnStaff.Name = "btnStaff";
             this.btnStaff.Size = new System.Drawing.Size(173, 55);

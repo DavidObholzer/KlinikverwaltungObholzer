@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using System.Data.SqlClient;
 using System.Collections;
 
@@ -18,9 +19,9 @@ namespace Klinikverwaltung
         static public bool checkForDatabase()
         {
             //check for the existence of the database by selecting every databse in sys.databases
-           
+
             bool exist = false;
-            
+
             try
             {
                 con.Open();
@@ -36,10 +37,30 @@ namespace Klinikverwaltung
                 MessageBox.Show(ex.ToString());
             }
 
-            if (exist)
-                return true;
-            else
-                return false;
+            return exist;
+        }
+
+        static public bool checkForAdmin(string username)
+        {
+            bool admin = false;
+
+            try
+            {
+                con.Open();
+                cmd.CommandText = "SELECT admin from TblUser where = '" + username + "'";
+
+                admin = Convert.ToInt32(cmd.ExecuteScalar()) == 1;
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
+
+            return admin;
         }
 
         static public void createDatabase()
@@ -133,7 +154,7 @@ namespace Klinikverwaltung
                     //test stuff
                     cmd.CommandText = "insert into TblRoom values ('RaumRaum', 0)";
                     cmd.ExecuteNonQuery();
-                    
+
                     cmd.CommandText = "insert into TblStaff values ('Hans', 'Hasenauer', '2001-02-02', 3400.00, " +
                         "'Doktor');";
                     cmd.ExecuteNonQuery();
@@ -172,7 +193,7 @@ namespace Klinikverwaltung
                 cmd.CommandText = "insert into TblUser values ('" + username + "', '" + BCrypt.HashPassword(password, BCrypt.GenerateSalt())
                     + "', '" + admin + "')";
                 cmd.ExecuteNonQuery();
-                
+
                 con.Close();
             }
             catch (Exception ex)
@@ -248,7 +269,7 @@ namespace Klinikverwaltung
             List<string> lsRoomName = new List<string>();
             List<string> lsId = new List<string>();
 
-            
+
 
             try
             {
@@ -272,7 +293,7 @@ namespace Klinikverwaltung
                         lsId.Add(sdr[5].ToString());
                     }
                 }
-                
+
                 con.Close();
             }
             catch (Exception ex)
@@ -317,7 +338,7 @@ namespace Klinikverwaltung
             {
                 con.Open();
 
-                cmd.CommandText = "Insert into TblAppointment values(" + pId + ", " + sId + ", '" + date + "', " + 
+                cmd.CommandText = "Insert into TblAppointment values(" + pId + ", " + sId + ", '" + date + "', " +
                     roomId + ", '" + description + "')";
 
                 cmd.ExecuteNonQuery();
@@ -360,7 +381,7 @@ namespace Klinikverwaltung
             {
                 con.Open();
 
-                cmd.CommandText = "Update TblStaff set name='" + name + "', lastname='" + lastname + "', birthday='" + birthday + 
+                cmd.CommandText = "Update TblStaff set name='" + name + "', lastname='" + lastname + "', birthday='" + birthday +
                     "', monthlySalary=" + salary + ", profession='" + profession + "' " +
                     "where staffId = " + id;
 
@@ -423,7 +444,7 @@ namespace Klinikverwaltung
                     }
                 }
 
-                con.Close ();
+                con.Close();
             }
             catch (Exception ex)
             {
@@ -433,6 +454,30 @@ namespace Klinikverwaltung
             }
 
             return lShift;
+        }
+
+        public static DataTable fillDataTable(string tableName)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                con.Open();
+
+                SqlDataAdapter sda = new SqlDataAdapter("select * from " + tableName, con);
+                sda.Fill(dt);
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State != ConnectionState.Closed)
+                    con.Close();
+
+                MessageBox.Show(ex.Message);
+            }
+
+            return dt;
         }
     }
 }

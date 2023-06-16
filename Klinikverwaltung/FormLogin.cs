@@ -18,7 +18,7 @@ namespace Klinikverwaltung
             {
                 MessageBox.Show("Login successful", "Info",MessageBoxButtons.OK);
                 
-                FormMainMenu fmm = new FormMainMenu();
+                FormMainMenu fmm = new FormMainMenu(txtUsername.Text);
 
                 Hide();
                 fmm.ShowDialog();

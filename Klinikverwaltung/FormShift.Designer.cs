@@ -35,13 +35,14 @@
             this.lblEmployee = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.btnSelect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblTitle.Location = new System.Drawing.Point(332, 33);
+            this.lblTitle.Location = new System.Drawing.Point(331, 8);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(107, 25);
             this.lblTitle.TabIndex = 0;
@@ -77,7 +78,7 @@
             // lblEmployee
             // 
             this.lblEmployee.AutoSize = true;
-            this.lblEmployee.Location = new System.Drawing.Point(12, 41);
+            this.lblEmployee.Location = new System.Drawing.Point(12, 48);
             this.lblEmployee.Name = "lblEmployee";
             this.lblEmployee.Size = new System.Drawing.Size(144, 15);
             this.lblEmployee.TabIndex = 12;
@@ -85,7 +86,7 @@
             // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(162, 38);
+            this.txtId.Location = new System.Drawing.Point(162, 45);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(66, 23);
             this.txtId.TabIndex = 13;
@@ -93,19 +94,30 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(234, 38);
+            this.btnSearch.Location = new System.Drawing.Point(316, 45);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(76, 23);
             this.btnSearch.TabIndex = 14;
-            this.btnSearch.Text = "suchen";
+            this.btnSearch.Text = "Suchen";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnSelect
+            // 
+            this.btnSelect.Location = new System.Drawing.Point(234, 45);
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.Size = new System.Drawing.Size(76, 23);
+            this.btnSelect.TabIndex = 15;
+            this.btnSelect.Text = "Auswählen";
+            this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // FormShift
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 486);
+            this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.lblEmployee);
@@ -130,5 +142,6 @@
         private Label lblEmployee;
         private TextBox txtId;
         private Button btnSearch;
+        private Button btnSelect;
     }
 }

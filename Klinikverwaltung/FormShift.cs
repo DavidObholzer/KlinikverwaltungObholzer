@@ -185,9 +185,8 @@ namespace Klinikverwaltung
         
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            correctId = SqlCommunication.checkStaffId(txtId.Text);
-            textChanged = false;
-            colorShifts();
+            FormSearch fs = new FormSearch("TblStaff");
+            fs.Show();
         }
 
         private void txtId_TextChanged(object sender, EventArgs e)
@@ -232,6 +231,13 @@ namespace Klinikverwaltung
                     pnl.BackColor = Color.White;
                 }
             }
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            correctId = SqlCommunication.checkStaffId(txtId.Text);
+            textChanged = false;
+            colorShifts();
         }
     }
 }

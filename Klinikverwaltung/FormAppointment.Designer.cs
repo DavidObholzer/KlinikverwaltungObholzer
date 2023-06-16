@@ -40,6 +40,8 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.btn_addAppointment = new System.Windows.Forms.Button();
             this.lbl_dateInfo = new System.Windows.Forms.Label();
+            this.btnSearchPatient = new System.Windows.Forms.Button();
+            this.btnSearchStaff = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblStaff
@@ -130,7 +132,7 @@
             // btn_addAppointment
             // 
             this.btn_addAppointment.Enabled = false;
-            this.btn_addAppointment.Location = new System.Drawing.Point(237, 38);
+            this.btn_addAppointment.Location = new System.Drawing.Point(237, 12);
             this.btn_addAppointment.Name = "btn_addAppointment";
             this.btn_addAppointment.Size = new System.Drawing.Size(149, 23);
             this.btn_addAppointment.TabIndex = 10;
@@ -147,11 +149,33 @@
             this.lbl_dateInfo.TabIndex = 11;
             this.lbl_dateInfo.Text = "Jahr-Monat-Tag Format";
             // 
+            // btnSearchPatient
+            // 
+            this.btnSearchPatient.Location = new System.Drawing.Point(196, 43);
+            this.btnSearchPatient.Name = "btnSearchPatient";
+            this.btnSearchPatient.Size = new System.Drawing.Size(75, 23);
+            this.btnSearchPatient.TabIndex = 33;
+            this.btnSearchPatient.Text = "Suchen";
+            this.btnSearchPatient.UseVisualStyleBackColor = true;
+            this.btnSearchPatient.Click += new System.EventHandler(this.btnSearchPatient_Click);
+            // 
+            // btnSearchStaff
+            // 
+            this.btnSearchStaff.Location = new System.Drawing.Point(196, 86);
+            this.btnSearchStaff.Name = "btnSearchStaff";
+            this.btnSearchStaff.Size = new System.Drawing.Size(75, 23);
+            this.btnSearchStaff.TabIndex = 34;
+            this.btnSearchStaff.Text = "Suchen";
+            this.btnSearchStaff.UseVisualStyleBackColor = true;
+            this.btnSearchStaff.Click += new System.EventHandler(this.btnSearchStaff_Click);
+            // 
             // FormAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(398, 407);
+            this.Controls.Add(this.btnSearchStaff);
+            this.Controls.Add(this.btnSearchPatient);
             this.Controls.Add(this.lbl_dateInfo);
             this.Controls.Add(this.btn_addAppointment);
             this.Controls.Add(this.txtDescription);
@@ -185,5 +209,7 @@
         private TextBox txtDescription;
         private Button btn_addAppointment;
         private Label lbl_dateInfo;
+        private Button btnSearchPatient;
+        private Button btnSearchStaff;
     }
 }

@@ -59,5 +59,11 @@ namespace Klinikverwaltung
                 SqlCommunication.deleteUser(txtId.Text);
             }
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            FormSearch fs = new FormSearch("TblUser");
+            fs.Show();
+        }
     }
 }

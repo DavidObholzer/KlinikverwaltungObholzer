@@ -76,5 +76,17 @@ namespace Klinikverwaltung
         {
             checkForNullValues();
         }
+
+        private void btnSearchPatient_Click(object sender, EventArgs e)
+        {
+            FormSearch fs = new FormSearch("TblPatient");
+            fs.Show();
+        }
+
+        private void btnSearchStaff_Click(object sender, EventArgs e)
+        {
+            FormSearch fs = new FormSearch("TblStaff");
+            fs.Show();
+        }
     }
 }

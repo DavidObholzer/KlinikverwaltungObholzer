@@ -12,15 +12,20 @@ namespace Klinikverwaltung
 {
     public partial class FormMainMenu : Form
     {
+        private string username;
         Panel plCalender = new Panel();
-        public FormMainMenu()
+        public FormMainMenu(string username)
         {
             InitializeComponent();
+            this.username = username;
         }
 
         private void FormMainMenu_Load(object sender, EventArgs e)
         {
-            
+            if (SqlCommunication.checkForAdmin(username))
+            {
+                btnStaff.Enabled = true;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
