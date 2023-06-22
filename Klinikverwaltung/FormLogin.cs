@@ -32,7 +32,7 @@ namespace Klinikverwaltung
 
         private void btnTempSkip_Click(object sender, EventArgs e)
         {
-            FormMainMenu fmm = new FormMainMenu();
+            FormMainMenu fmm = new FormMainMenu(txtUsername.Text);
 
             Hide();
             fmm.ShowDialog();

@@ -44,12 +44,17 @@ namespace Klinikverwaltung
         {
             bool admin = false;
 
+            if (username.Equals(""))
+            {
+                return false;
+            }
+
             try
             {
                 con.Open();
-                cmd.CommandText = "SELECT admin from TblUser where = '" + username + "'";
+                cmd.CommandText = "SELECT admin from TblUser where username = '" + username + "'";
 
-                admin = Convert.ToInt32(cmd.ExecuteScalar()) == 1;
+                admin = cmd.ExecuteScalar().ToString().Equals("True");
 
                 con.Close();
             }

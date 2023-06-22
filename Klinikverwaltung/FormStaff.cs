@@ -54,7 +54,7 @@ namespace Klinikverwaltung
                 SqlCommunication.changeStaff(txtId.Text, txtName.Text, txtLastname.Text, txtBirthday.Text, txtSalary.Text, txtProfession.Text);
             }
             
-            
+            MessageBox.Show("Erfolgreich durchgeführt!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

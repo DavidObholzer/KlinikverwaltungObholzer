@@ -58,6 +58,8 @@ namespace Klinikverwaltung
             {
                 SqlCommunication.deleteUser(txtId.Text);
             }
+
+            MessageBox.Show("Erfolgreich durchgeführt!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
