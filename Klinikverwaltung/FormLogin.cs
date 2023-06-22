@@ -2,6 +2,7 @@ namespace Klinikverwaltung
 {
     public partial class FormLogin : Form
     {
+        bool userExists = false;
         public FormLogin()
         {
             InitializeComponent();
@@ -10,6 +11,14 @@ namespace Klinikverwaltung
         {
             SqlCommunication.createDatabase();
             SqlCommunication.createTables();
+            userExists = SqlCommunication.checkForUser();
+
+            if (!userExists)
+            {
+                btnRegister.Visible = true;
+                btnRegister.Enabled = true;
+                lblInfo.Visible = true;
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -30,13 +39,22 @@ namespace Klinikverwaltung
             }
         }
 
-        private void btnTempSkip_Click(object sender, EventArgs e)
+        private void btnRegister_Click(object sender, EventArgs e)
         {
-            FormMainMenu fmm = new FormMainMenu(txtUsername.Text);
+            FormProfile fp = new FormProfile(true);
 
             Hide();
-            fmm.ShowDialog();
+            fp.ShowDialog();
             Close();
+
+           if (SqlCommunication.checkForUser())
+            {
+                FormMainMenu fmm = new FormMainMenu(txtUsername.Text);
+
+                Hide();
+                fmm.ShowDialog();
+                Close();
+            }
         }
     }
 }

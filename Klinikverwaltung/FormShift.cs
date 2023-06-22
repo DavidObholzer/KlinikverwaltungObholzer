@@ -239,5 +239,11 @@ namespace Klinikverwaltung
             textChanged = false;
             colorShifts();
         }
+
+        private void btnCreateShift_Click(object sender, EventArgs e)
+        {
+            FormCreateShift fcs = new FormCreateShift(txtId.Text);
+            fcs.Show();
+        }
     }
 }

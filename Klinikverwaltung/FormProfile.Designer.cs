@@ -156,9 +156,8 @@
             this.chbAdmin.AutoSize = true;
             this.chbAdmin.Location = new System.Drawing.Point(161, 190);
             this.chbAdmin.Name = "chbAdmin";
-            this.chbAdmin.Size = new System.Drawing.Size(83, 19);
+            this.chbAdmin.Size = new System.Drawing.Size(15, 14);
             this.chbAdmin.TabIndex = 44;
-            this.chbAdmin.Text = "checkBox1";
             this.chbAdmin.UseVisualStyleBackColor = true;
             // 
             // btnSearch
@@ -192,6 +191,7 @@
             this.Controls.Add(this.lblPassword);
             this.Name = "FormProfile";
             this.Text = "FormProfile";
+            this.Load += new System.EventHandler(this.FormProfile_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

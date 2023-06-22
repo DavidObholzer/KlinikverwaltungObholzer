@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections;
+using System.Security.Cryptography;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Klinikverwaltung
 {
@@ -66,6 +68,29 @@ namespace Klinikverwaltung
             }
 
             return admin;
+        }
+
+        static public bool checkForUser()
+        {
+            bool user = false;
+
+            try
+            {
+                con.Open();
+                cmd.CommandText = "SELECT Count(*) from TblUser";
+
+                user = Convert.ToInt32(cmd.ExecuteScalar()) == 1;
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
+
+            return user;
         }
 
         static public void createDatabase()
@@ -168,7 +193,7 @@ namespace Klinikverwaltung
                         "'2023-05-20', 1);";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "insert into TblAppointment values (1, 1, '2023-05-12', 1, " +
+                    cmd.CommandText = "insert into TblAppointment values (1, 1, '2023-06-22', 1, " +
                         "'dumb things happpening here')";
                     cmd.ExecuteNonQuery();
 
@@ -267,14 +292,11 @@ namespace Klinikverwaltung
         public static List<List<string>> getAppointments(string date)
         {
             //returns a list of appointments on a certain date
-            //should probably be replaced by a class 
             List<List<string>> appointments = new List<List<string>>();
             List<string> lsPatient = new List<string>();
             List<string> lsStaff = new List<string>();
             List<string> lsRoomName = new List<string>();
             List<string> lsId = new List<string>();
-
-
 
             try
             {
@@ -459,6 +481,26 @@ namespace Klinikverwaltung
             }
 
             return lShift;
+        }
+
+        public static void setShift(Shift shift)
+        {
+            try
+            {
+                con.Open();
+                cmd.CommandText = "Insert into TblShift values(" + shift.sId + ", '" + shift.startDate.ToString("yyyy-MM-dd hh:mm:ss")
+                    + "', '" + shift.endDate.ToString("yyyy-MM-dd hh:mm:ss") + "', '" + shift.description + "')";
+
+                cmd.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         public static DataTable fillDataTable(string tableName)

@@ -12,9 +12,11 @@ namespace Klinikverwaltung
 {
     public partial class FormProfile : Form
     {
-        public FormProfile()
+        bool firstRegister = false;
+        public FormProfile(bool firstRegister)
         {
             InitializeComponent();
+            this.firstRegister = firstRegister;
         }
 
         private void btnAddProfile_Click(object sender, EventArgs e)
@@ -66,6 +68,15 @@ namespace Klinikverwaltung
         {
             FormSearch fs = new FormSearch("TblUser");
             fs.Show();
+        }
+
+        private void FormProfile_Load(object sender, EventArgs e)
+        {
+            if (firstRegister)
+            {
+                chbAdmin.Checked = true;
+                chbAdmin.Enabled = false;
+            }
         }
     }
 }

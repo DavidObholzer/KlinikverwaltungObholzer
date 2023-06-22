@@ -110,14 +110,33 @@ namespace Klinikverwaltung
             int i3 = 0;
             foreach (Panel p in lsPanel)
             {
-                Label lblNew = new Label();
-                
-                lblNew.Text = lsPatient[i3];
-                lblNew.Top = p.Height / 2 - lblNew.Height / 2;
-                lblNew.Left = p.Width / 2 - lblNew.Width / 2;
-                lblNew.Tag = p.Tag;
-                lblNew.Click += lblNew_Click;
-                p.Controls.Add(lblNew);
+                Label lblNewPatient = new Label();
+
+                lblNewPatient.Text = lsPatient[i3];
+                lblNewPatient.Top = 10;
+                lblNewPatient.Left = 5;
+                lblNewPatient.Tag = p.Tag;
+                lblNewPatient.Click += lblNew_Click;
+                p.Controls.Add(lblNewPatient);
+
+                Label lblNewStaff = new Label();
+
+                lblNewStaff.Text = lsStaff[i3];
+                lblNewStaff.Top = lblNewPatient.Height + lblNewPatient.Top + 5;
+                lblNewStaff.Left = 5;
+                lblNewStaff.Tag = p.Tag;
+                lblNewStaff.Click += lblNew_Click;
+                p.Controls.Add(lblNewStaff);
+
+                Label lblNewRoom = new Label();
+
+                lblNewRoom.Text = lsRoomName[i3];
+                lblNewRoom.Top = lblNewStaff.Height + lblNewStaff.Top + 5;
+                lblNewRoom.Left = 5;
+                lblNewRoom.Tag = p.Tag;
+                lblNewRoom.Click += lblNew_Click;
+                p.Controls.Add(lblNewRoom);
+
                 i3++;
             }
         }

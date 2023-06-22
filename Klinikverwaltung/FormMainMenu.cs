@@ -38,7 +38,7 @@ namespace Klinikverwaltung
 
         private void btn_profiles_Click(object sender, EventArgs e)
         {
-            FormProfile fp = new FormProfile();
+            FormProfile fp = new FormProfile(false);
             Hide();
             fp.ShowDialog();
             Show();

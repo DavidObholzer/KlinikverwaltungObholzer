@@ -33,7 +33,8 @@
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.btnTempSkip = new System.Windows.Forms.Button();
+            this.btnRegister = new System.Windows.Forms.Button();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnLogin
@@ -77,23 +78,37 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(192, 23);
             this.txtPassword.TabIndex = 4;
+            this.txtPassword.UseSystemPasswordChar = true;
             // 
-            // btnTempSkip
+            // btnRegister
             // 
-            this.btnTempSkip.Location = new System.Drawing.Point(76, 248);
-            this.btnTempSkip.Name = "btnTempSkip";
-            this.btnTempSkip.Size = new System.Drawing.Size(303, 49);
-            this.btnTempSkip.TabIndex = 6;
-            this.btnTempSkip.Text = "Temporary Skip";
-            this.btnTempSkip.UseVisualStyleBackColor = true;
-            this.btnTempSkip.Click += new System.EventHandler(this.btnTempSkip_Click);
+            this.btnRegister.Enabled = false;
+            this.btnRegister.Location = new System.Drawing.Point(76, 248);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(303, 49);
+            this.btnRegister.TabIndex = 6;
+            this.btnRegister.Text = "Registrieren";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnRegister.Visible = false;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Location = new System.Drawing.Point(63, 300);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(332, 15);
+            this.lblInfo.TabIndex = 7;
+            this.lblInfo.Text = "Registrieren ist nur verfügbar bis der erste Admin registriert ist";
+            this.lblInfo.Visible = false;
             // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 314);
-            this.Controls.Add(this.btnTempSkip);
+            this.ClientSize = new System.Drawing.Size(457, 331);
+            this.Controls.Add(this.lblInfo);
+            this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblUsername);
@@ -113,6 +128,7 @@
         private Label lblUsername;
         private Label lblPassword;
         private TextBox txtPassword;
-        private Button btnTempSkip;
+        private Button btnRegister;
+        private Label lblInfo;
     }
 }

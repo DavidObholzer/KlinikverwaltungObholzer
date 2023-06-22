@@ -36,6 +36,7 @@
             this.txtId = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnSelect = new System.Windows.Forms.Button();
+            this.btnCreateShift = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -94,7 +95,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(316, 45);
+            this.btnSearch.Location = new System.Drawing.Point(444, 45);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(76, 23);
             this.btnSearch.TabIndex = 14;
@@ -112,11 +113,22 @@
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
+            // btnCreateShift
+            // 
+            this.btnCreateShift.Location = new System.Drawing.Point(316, 45);
+            this.btnCreateShift.Name = "btnCreateShift";
+            this.btnCreateShift.Size = new System.Drawing.Size(122, 23);
+            this.btnCreateShift.TabIndex = 16;
+            this.btnCreateShift.Text = "Schicht eintragen";
+            this.btnCreateShift.UseVisualStyleBackColor = true;
+            this.btnCreateShift.Click += new System.EventHandler(this.btnCreateShift_Click);
+            // 
             // FormShift
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 486);
+            this.Controls.Add(this.btnCreateShift);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtId);
@@ -143,5 +155,6 @@
         private TextBox txtId;
         private Button btnSearch;
         private Button btnSelect;
+        private Button btnCreateShift;
     }
 }
