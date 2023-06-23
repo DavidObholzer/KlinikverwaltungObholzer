@@ -182,28 +182,28 @@ namespace Klinikverwaltung
                     cmd.ExecuteNonQuery();
 
                     //test stuff
-                    cmd.CommandText = "insert into TblRoom values ('RaumRaum', 0)";
-                    cmd.ExecuteNonQuery();
+                    //cmd.CommandText = "insert into TblRoom values ('RaumRaum', 0)";
+                    //cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "insert into TblStaff values ('Hans', 'Hasenauer', '2001-02-02', 3400.00, " +
-                        "'Doktor');";
-                    cmd.ExecuteNonQuery();
+                    //cmd.CommandText = "insert into TblStaff values ('Hans', 'Hasenauer', '2001-02-02', 3400.00, " +
+                    //    "'Doktor');";
+                    //cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "insert into TblPatient values ('Peter', 'Fischer', '2001-02-02', '2023-02-23', " +
-                        "'2023-05-20', 1);";
-                    cmd.ExecuteNonQuery();
+                    //cmd.CommandText = "insert into TblPatient values ('Peter', 'Fischer', '2001-02-02', '2023-02-23', " +
+                    //    "'2023-05-20', 1);";
+                    //cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "insert into TblAppointment values (1, 1, '2023-06-22', 1, " +
-                        "'dumb things happpening here')";
-                    cmd.ExecuteNonQuery();
+                    //cmd.CommandText = "insert into TblAppointment values (1, 1, '2023-06-22', 1, " +
+                    //    "'dumb things happpening here')";
+                    //cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "insert into TblShift values (1, '2023-05-12 08:00:00', " +
-                        "'2023-05-12 12:00:00', 'lorem ipsum')";
-                    cmd.ExecuteNonQuery();
+                    //cmd.CommandText = "insert into TblShift values (1, '2023-05-12 08:00:00', " +
+                    //    "'2023-05-12 12:00:00', 'lorem ipsum')";
+                    //cmd.ExecuteNonQuery();
 
                     con.Close();
 
-                    insertIntoUser("david", "test", "true");
+                    //insertIntoUser("david", "test", "true");
                 }
             }
             catch (Exception ex)
@@ -289,14 +289,10 @@ namespace Klinikverwaltung
             return false;
         }
 
-        public static List<List<string>> getAppointments(string date)
+        public static List<Appointment> getAppointments(string date)
         {
             //returns a list of appointments on a certain date
-            List<List<string>> appointments = new List<List<string>>();
-            List<string> lsPatient = new List<string>();
-            List<string> lsStaff = new List<string>();
-            List<string> lsRoomName = new List<string>();
-            List<string> lsId = new List<string>();
+            List<Appointment> la = new List<Appointment>();
 
             try
             {
@@ -314,10 +310,12 @@ namespace Klinikverwaltung
                 {
                     while (sdr.Read())
                     {
-                        lsPatient.Add(sdr[0].ToString() + " " + sdr[1].ToString());
-                        lsStaff.Add(sdr[2].ToString() + " " + sdr[3].ToString());
-                        lsRoomName.Add(sdr[4].ToString());
-                        lsId.Add(sdr[5].ToString());
+                        Appointment a = new Appointment();
+                        a.patient = sdr[0].ToString() + " " + sdr[1].ToString();
+                        a.staff = sdr[2].ToString() + " " + sdr[3].ToString();
+                        a.room = sdr[4].ToString();
+                        a.id = sdr[5].ToString();
+                        la.Add(a);
                     }
                 }
 
@@ -330,12 +328,7 @@ namespace Klinikverwaltung
                 MessageBox.Show(ex.ToString());
             }
 
-            appointments.Add(lsPatient);
-            appointments.Add(lsStaff);
-            appointments.Add(lsRoomName);
-            appointments.Add(lsId);
-
-            return appointments;
+            return la;
         }
 
         public static void deleteAppointment(int id)

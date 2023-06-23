@@ -13,10 +13,6 @@ namespace Klinikverwaltung
     public partial class FormSingleDay : Form
     {
         private DateTime date;
-        List<string> lsPatient = new List<string>();
-        List<string> lsStaff = new List<string>();
-        List<string> lsRoomName = new List<string>();
-        List<string> lsId = new List<string>();
         List<Panel> lsPanel = new List<Panel>();
 
         public FormSingleDay(DateTime date)
@@ -66,11 +62,7 @@ namespace Klinikverwaltung
 
         public void updatePanelLayout()
         {
-            List<List<string>> lsTemp = SqlCommunication.getAppointments(date.ToString("yyyy-MM-dd"));
-            lsPatient = lsTemp[0];
-            lsStaff = lsTemp[1];
-            lsRoomName = lsTemp[2];
-            lsId = lsTemp[3];
+            List<Appointment> la = SqlCommunication.getAppointments(date.ToString("yyyy-MM-dd"));
 
             lsPanel.Clear();
             pnlSingleDay.Controls.Clear();
@@ -81,11 +73,11 @@ namespace Klinikverwaltung
 
             //for loop to get create buttons in a new row after 5 panels have been created
             //idk about the calculation rn though
-            int numberOfRows = Convert.ToInt32(Math.Round(lsPatient.Count / 5 + 0.5, MidpointRounding.AwayFromZero));
+            int numberOfRows = Convert.ToInt32(Math.Round(la.Count / 5 + 0.5, MidpointRounding.AwayFromZero));
             int iAppointmentCount = 0;
             for (int i = 0; i < numberOfRows; i++)
             {
-                for (int i2 = 0; i2 < 5 && iAppointmentCount < lsPatient.Count; i2++)
+                for (int i2 = 0; i2 < 5 && iAppointmentCount < la.Count; i2++)
                 {
                     Panel pnlNew = new Panel();
                     pnlNew.Top = topValue;
@@ -94,7 +86,7 @@ namespace Klinikverwaltung
                     pnlNew.Width = 154;
                     pnlNew.BorderStyle = BorderStyle.FixedSingle;
                     pnlNew.Click += pnlNew_Click;
-                    pnlNew.Tag = lsId[iAppointmentCount];
+                    pnlNew.Tag = la[iAppointmentCount].id;
                     pnlSingleDay.Controls.Add(pnlNew);
                     lsPanel.Add(pnlNew);
 
@@ -112,7 +104,7 @@ namespace Klinikverwaltung
             {
                 Label lblNewPatient = new Label();
 
-                lblNewPatient.Text = lsPatient[i3];
+                lblNewPatient.Text = la[i3].patient;
                 lblNewPatient.Top = 10;
                 lblNewPatient.Left = 5;
                 lblNewPatient.Tag = p.Tag;
@@ -121,7 +113,7 @@ namespace Klinikverwaltung
 
                 Label lblNewStaff = new Label();
 
-                lblNewStaff.Text = lsStaff[i3];
+                lblNewStaff.Text = la[i3].staff;
                 lblNewStaff.Top = lblNewPatient.Height + lblNewPatient.Top + 5;
                 lblNewStaff.Left = 5;
                 lblNewStaff.Tag = p.Tag;
@@ -130,7 +122,7 @@ namespace Klinikverwaltung
 
                 Label lblNewRoom = new Label();
 
-                lblNewRoom.Text = lsRoomName[i3];
+                lblNewRoom.Text = la[i3].room;
                 lblNewRoom.Top = lblNewStaff.Height + lblNewStaff.Top + 5;
                 lblNewRoom.Left = 5;
                 lblNewRoom.Tag = p.Tag;
